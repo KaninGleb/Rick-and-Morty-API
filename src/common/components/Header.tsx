@@ -1,7 +1,9 @@
+import { logo } from '@/assets'
+
 export const Header = () => {
   return (
     <div>
-      <h1>Header</h1>
+      <img src={logo} alt="logotype" />
     </div>
   )
 }
