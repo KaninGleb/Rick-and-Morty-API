@@ -2,37 +2,50 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
+    background: var(--slate-200);
+
+    --slate-50: #f8fafc;
+    --slate-200: #e2e8f0;
+    --slate-200-20: rgba(226, 232, 240, 0.2);
+    --slate-400: #94a3b8;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+
+    --red-600: #dc2626;
+    --green-500: #22c55e;
 }
 
 body {
     margin: 0;
 }
 
+/* Pages */
 .pageTitle {
     margin: 0;
-    color: #1e293b;
+    color: var(--slate-800);
     font-weight: 900;
     font-size: 70px;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 100px;
 }
 
+/* Common elements */
 .linkButton {
     margin: 10px;
     padding: 10px;
-    color: #f8fafc;
-    background-color: #1e293b;
+    color: var(--slate-50);
+    background-color: var(--slate-800);
     text-decoration: none;
     font-size: 24px;
     width: 200px;
     text-align: center;
     border-radius: 5px;
-    border: 2px solid #1e293b;
+    border: 2px solid var(--slate-800);
 
     &:hover {
-        color: #1e293b;
-        background-color: #f8fafc;
-        border: 2px solid #1e293b;
+        color: var(--slate-800);
+        background-color: var(--slate-50);
+        border: 2px solid var(--slate-800);
         cursor: pointer;
     }
 }
