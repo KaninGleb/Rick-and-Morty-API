@@ -6,8 +6,8 @@ export type BaseResponse = {
 export type Info = {
   count: number
   pages: number
-  next: string
-  prev?: string | null
+  next: string | null
+  prev: string | null
 }
 
 export type Results = {
