@@ -34,3 +34,5 @@ export type Location = {
   name: string
   url: string
 }
+
+export type ErrorType = string | null
