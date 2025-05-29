@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { type Info, type Results } from '@/pages'
+import { type ChangeEvent, useEffect, useState } from 'react'
+import type { Results, Info, ErrorType } from '@/pages/api'
 import { instance } from '@/common'
 import s from './CharacterPage.module.css'
 
@@ -13,12 +13,20 @@ export const CharacterPage = () => {
     prev: null,
   })
 
+  const [error, setError] = useState<ErrorType>(null)
+
   const fetchData = (url: string | null) => {
     if (!url) return
-    instance.get(url).then((res) => {
-      setCharacters(res.data.results)
-      setInfo(res.data.info)
-    })
+    instance
+      .get(url)
+      .then((res) => {
+        setCharacters(res.data.results)
+        setInfo(res.data.info)
+        setError(null)
+      })
+      .catch((err) => {
+        setError(err.response.data.error)
+      })
   }
 
   useEffect(() => {
@@ -33,10 +41,17 @@ export const CharacterPage = () => {
     fetchData(info.prev)
   }
 
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value
+    fetchData(`/character?name=${value}`)
+  }
+
   return (
     <div className={'pageContainer'}>
       <h1 className={'pageTitle'}>CharacterPage</h1>
-      {characters.length && (
+      <input type={'search'} className={s.search} onChange={searchHandler} placeholder={'Search...'} />
+      {error && <div className="errorMessage">{error}</div>}
+      {!error && characters.length && (
         <>
           {
             <div className={s.characters}>
