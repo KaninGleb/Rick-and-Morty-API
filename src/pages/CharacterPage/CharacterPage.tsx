@@ -1,6 +1,7 @@
 import { type ChangeEvent, useEffect, useState } from 'react'
 import type { Results, Info, ErrorType } from '@/pages/api'
 import { instance } from '@/common'
+import { Link } from 'react-router'
 import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => {
@@ -58,7 +59,9 @@ export const CharacterPage = () => {
               {characters.map((character) => {
                 return (
                   <div key={character.id} className={s.character}>
-                    <div className={s.characterLink}>{character.name}</div>
+                    <Link to={`/characters/${character.id}`} className={s.characterLink}>
+                      {character.name}
+                    </Link>
                     <img src={character.image} alt={`${character.name} avatar`} />
                   </div>
                 )
