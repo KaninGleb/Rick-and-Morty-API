@@ -1,31 +1,65 @@
-import { useState, useEffect } from 'react'
-import { api, type Results } from '@/pages'
+import { useEffect, useState } from 'react'
+import { type Info, type Results } from '@/pages'
+import { instance } from '@/common'
 import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => {
   const [characters, setCharacters] = useState<Results[]>([])
 
-  useEffect(() => {
-    api.getCharacters().then((res) => {
+  const [info, setInfo] = useState<Info>({
+    count: 0,
+    pages: 0,
+    next: null,
+    prev: null,
+  })
+
+  const fetchData = (url: string | null) => {
+    if (!url) return
+    instance.get(url).then((res) => {
       setCharacters(res.data.results)
+      setInfo(res.data.info)
     })
+  }
+
+  useEffect(() => {
+    fetchData('/character')
   }, [])
+
+  const nextPageHandler = () => {
+    fetchData(info.next)
+  }
+
+  const previousPageHandler = () => {
+    fetchData(info.prev)
+  }
 
   return (
     <div className={'pageContainer'}>
       <h1 className={'pageTitle'}>CharacterPage</h1>
-      <div>
-        {characters.length && (
-          <div className={s.characters}>
-            {characters.map((char) => (
-              <div key={char.id} className={s.character}>
-                <div className={s.characterLink}>{char.name}</div>
-                <img src={char.image} alt={`${char.name} avatar`} />
-              </div>
-            ))}
+      {characters.length && (
+        <>
+          {
+            <div className={s.characters}>
+              {characters.map((character) => {
+                return (
+                  <div key={character.id} className={s.character}>
+                    <div className={s.characterLink}>{character.name}</div>
+                    <img src={character.image} alt={`${character.name} avatar`} />
+                  </div>
+                )
+              })}
+            </div>
+          }
+          <div className={s.buttonContainer}>
+            <button className="linkButton" disabled={info.prev === null} onClick={previousPageHandler}>
+              Назад
+            </button>
+            <button className="linkButton" disabled={info.next === null} onClick={nextPageHandler}>
+              Вперед
+            </button>
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   )
 }
