@@ -1,6 +1,6 @@
-export type BaseResponse = {
+export type BaseResponse<T> = {
   info: Info
-  results: Results[]
+  results: T[]
 }
 
 export type Info = {
@@ -10,7 +10,7 @@ export type Info = {
   prev: string | null
 }
 
-export type Results = {
+export type CharactersResults = {
   id: number
   name: string
   status: string
@@ -21,6 +21,16 @@ export type Results = {
   location: Location
   image: string
   episode: string[]
+  url: string
+  created: string
+}
+
+export type LocationResults = {
+  id: number
+  name: string
+  type: string
+  dimension: string
+  residents: string[]
   url: string
   created: string
 }
