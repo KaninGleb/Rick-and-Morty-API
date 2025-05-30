@@ -13,31 +13,24 @@ export const LocationPage = () => {
 
   return (
     <div className={'pageContainer'}>
-      <div>
-        <h1 className={`pageTitle ${s.title}`}>LocationPage</h1>
-        <div>
-          {locations.map((l) => {
-            return (
-              <div key={l.id}>
-                <ul>
-                  <li>
-                    Location name: <b>{l.name}</b>
-                  </li>
-                  <li>
-                    Location type: <b>{l.type}</b>
-                  </li>
-                  <li>
-                    Measurement where the location is: <b>{l.dimension}</b>
-                  </li>
-                  <li>
-                    Number of characters seen in this location: <b>{l.residents.length}</b>
-                  </li>
-                </ul>
-                <hr />
-              </div>
-            )
-          })}
-        </div>
+      <h1 className={`${s.pageTitle} ${s.title}`}>LocationPage</h1>
+      <div className={s.locationsList}>
+        {locations.map((l) => (
+          <div key={l.id} className={s.locationCard}>
+            <h2 className={s.locationName}>{l.name}</h2>
+            <ul className={s.locationDetails}>
+              <li>
+                <span className={s.label}>Type:</span> {l.type}
+              </li>
+              <li>
+                <span className={s.label}>Dimension:</span> {l.dimension}
+              </li>
+              <li>
+                <span className={s.label}>Residents:</span> {l.residents.length}
+              </li>
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   )
