@@ -1,3 +1,52 @@
 .title {
     font-size: 70px;
 }
+
+.pageTitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #222;
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.locationsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.locationCard {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    padding: 20px 25px;
+    cursor: default;
+}
+
+.locationName {
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+    color: #1a202c;
+    border-bottom: 2px solid #3182ce;
+    padding-bottom: 5px;
+}
+
+.locationDetails {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+.locationDetails li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.label {
+    font-weight: 600;
+    color: #2b6cb0;
+}
