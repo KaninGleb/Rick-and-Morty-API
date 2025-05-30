@@ -5,7 +5,7 @@ export const api = {
   getCharacters(url: string = `/character`) {
     return instance.get<BaseResponse<CharactersResults>>(url)
   },
-  getLocations() {
-    return instance.get<BaseResponse<LocationResults>>(`/location`)
+  getLocations(url: string = `/location`) {
+    return instance.get<BaseResponse<LocationResults>>(url)
   },
 }
