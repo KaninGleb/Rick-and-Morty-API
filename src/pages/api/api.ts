@@ -1,8 +1,8 @@
 import { instance } from '@/common'
-import type { BaseResponse } from '@/pages/api/api.types.ts'
+import type { BaseResponse, CharactersResults } from '@/pages/api/api.types.ts'
 
 export const api = {
-  getCharacters() {
-    return instance.get<BaseResponse>(`/character`)
+  getCharacters(url: string = '/character') {
+    return instance.get<BaseResponse<CharactersResults>>(url)
   },
 }

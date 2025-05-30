@@ -1,11 +1,10 @@
 import { type ChangeEvent, useEffect, useState } from 'react'
-import type { Results, Info, ErrorType } from '@/pages/api'
-import { instance } from '@/common'
+import { api, type CharactersResults, type Info, type ErrorType } from '@/pages/api'
 import { Link } from 'react-router'
 import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => {
-  const [characters, setCharacters] = useState<Results[]>([])
+  const [characters, setCharacters] = useState<CharactersResults[]>([])
 
   const [info, setInfo] = useState<Info>({
     count: 0,
@@ -18,8 +17,8 @@ export const CharacterPage = () => {
 
   const fetchData = (url: string | null) => {
     if (!url) return
-    instance
-      .get(url)
+    api
+      .getCharacters(url)
       .then((res) => {
         setCharacters(res.data.results)
         setInfo(res.data.info)
