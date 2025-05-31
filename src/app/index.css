@@ -73,3 +73,13 @@ body {
     text-align: center;
     font-size: 50px;
 }
+
+.search {
+    height: 60px;
+    border: 2px solid var(--slate-700);
+    font-size: 24px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin: 20px 0 30px 10px;
+    width: calc(100% - 60px);
+}
