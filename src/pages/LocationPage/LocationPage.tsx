@@ -1,44 +1,15 @@
-import { useEffect, useState } from 'react'
-import { api, type LocationResults, type Info, type ErrorType } from '@/pages/api'
+import { api, type LocationResults } from '@/pages/api'
+import { usePaginatedData } from '@/common/hooks'
 import s from './LocationPage.module.css'
 
 export const LocationPage = () => {
-  const [locations, setLocations] = useState<LocationResults[]>([])
-
-  const [info, setInfo] = useState<Info>({
-    count: 0,
-    pages: 0,
-    next: null,
-    prev: null,
-  })
-
-  const [error, setError] = useState<ErrorType>(null)
-
-  const fetchData = (url: string | null) => {
-    if (!url) return
-    api
-      .getLocations(url)
-      .then((res) => {
-        setLocations(res.data.results)
-        setInfo(res.data.info)
-        setError(null)
-      })
-      .catch((err) => {
-        setError(err.response?.data?.error || 'Unknown error')
-      })
-  }
-
-  useEffect(() => {
-    fetchData('/location')
-  }, [])
-
-  const nextPageHandler = () => {
-    fetchData(info.next)
-  }
-
-  const previousPageHandler = () => {
-    fetchData(info.prev)
-  }
+  const {
+    data: locations,
+    info,
+    error,
+    nextPageHandler,
+    previousPageHandler,
+  } = usePaginatedData<LocationResults>(api.getLocations, '/location')
 
   return (
     <div className={'pageContainer'}>
