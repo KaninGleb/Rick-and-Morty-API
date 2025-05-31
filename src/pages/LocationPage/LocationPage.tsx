@@ -1,6 +1,7 @@
 import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
 import s from './LocationPage.module.css'
+import type { ChangeEvent } from 'react'
 
 export const LocationPage = () => {
   const {
@@ -9,11 +10,18 @@ export const LocationPage = () => {
     error,
     nextPageHandler,
     previousPageHandler,
+    fetchData,
   } = usePaginatedData<LocationResults>(api.getLocations, '/location')
+
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value
+    fetchData(`/location?name=${value}`)
+  }
 
   return (
     <div className={'pageContainer'}>
-      <h1 className={`${s.pageTitle} ${s.title}`}>LocationPage</h1>
+      <h1 className={`pageTitle ${s.title}`}>LocationPage</h1>
+      <input type={'search'} className={'search'} onChange={searchHandler} placeholder={'Search...'} />
 
       {error && <div className="errorMessage">{error}</div>}
 
