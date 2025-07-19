@@ -46,3 +46,13 @@ export type Location = {
 }
 
 export type ErrorType = string | null
+
+export type EpisodeResults = {
+  id: number
+  name: string
+  air_date: string
+  episode: string
+  characters: string[]
+  url: string
+  created: string
+}
