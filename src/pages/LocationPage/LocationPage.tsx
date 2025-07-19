@@ -19,11 +19,11 @@ export const LocationPage = () => {
   }
 
   return (
-    <div className={'pageContainer'}>
-      <h1 className={`pageTitle ${s.title}`}>LocationPage</h1>
-      <input type={'search'} className={'search'} onChange={searchHandler} placeholder={'Search...'} />
+    <div className={s.pageContainer}>
+      <h1 className={s.pageTitle}>Locations</h1>
+      <input type="search" className={s.search} onChange={searchHandler} placeholder="🔍 Search location by name..." />
 
-      {error && <div className="errorMessage">{error}</div>}
+      {error && <div className={s.errorMessage}>{error}</div>}
 
       {!error && locations.length > 0 && (
         <>
@@ -31,27 +31,27 @@ export const LocationPage = () => {
             {locations.map((l) => (
               <div key={l.id} className={s.locationCard}>
                 <h2 className={s.locationName}>{l.name}</h2>
-                <ul className={s.locationDetails}>
-                  <li>
-                    <span className={s.label}>Type:</span> {l.type}
-                  </li>
-                  <li>
-                    <span className={s.label}>Dimension:</span> {l.dimension}
-                  </li>
-                  <li>
-                    <span className={s.label}>Residents:</span> {l.residents.length}
-                  </li>
-                </ul>
+                <div className={s.locationInfo}>
+                  <p>
+                    <span className={s.label}>🧭 Type:</span> {l.type || 'Unknown'}
+                  </p>
+                  <p>
+                    <span className={s.label}>🌌 Dimension:</span> {l.dimension || 'Unknown'}
+                  </p>
+                  <p>
+                    <span className={s.label}>👥 Residents:</span> {l.residents.length}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
 
-          <div className={'buttonContainer'}>
-            <button className="linkButton" disabled={!info.prev} onClick={previousPageHandler}>
-              Назад
+          <div className={s.buttonContainer}>
+            <button className={s.linkButton} disabled={!info.prev} onClick={previousPageHandler}>
+              Previous
             </button>
-            <button className="linkButton" disabled={!info.next} onClick={nextPageHandler}>
-              Вперед
+            <button className={s.linkButton} disabled={!info.next} onClick={nextPageHandler}>
+              Next
             </button>
           </div>
         </>
