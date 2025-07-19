@@ -5,6 +5,7 @@ import type { AxiosResponse } from 'axios'
 type PaginatedData<T> = {
   data: T[]
   info: Info
+  currentPage: number
   error: ErrorType | null
   isLoading: boolean
   fetchData: (url?: string) => void
@@ -23,8 +24,19 @@ export const usePaginatedData = <T>(
     next: null,
     prev: null,
   })
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [error, setError] = useState<ErrorType | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const getPageFromUrl = (url: string): number => {
+    try {
+      const urlObj = new URL(url)
+      const pageParam = urlObj.searchParams.get('page')
+      return pageParam ? parseInt(pageParam, 10) : 1
+    } catch {
+      return 1
+    }
+  }
 
   const fetchData = useCallback(async (url: string = initialUrl) => {
       if (!url) {
@@ -38,6 +50,7 @@ export const usePaginatedData = <T>(
         setData(res.data.results || [])
         setInfo(res.data.info)
         setError(null)
+        setCurrentPage(getPageFromUrl(url))
       } catch (err: any) {
         setError(err.response?.data?.error || 'Failed to fetch data')
         setData([])
@@ -67,6 +80,7 @@ export const usePaginatedData = <T>(
   return {
     data,
     info,
+    currentPage,
     error,
     isLoading,
     fetchData,
