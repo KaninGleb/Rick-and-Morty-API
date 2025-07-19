@@ -2,8 +2,8 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import {PageTitle, Icon} from '@/common/components'
-import {EpisodeCard} from '@/pages';
+import { PageTitle, Icon } from '@/common/components'
+import { EpisodeList } from '@/pages'
 import s from './EpisodePage.module.css'
 
 export const EpisodePage = () => {
@@ -70,11 +70,7 @@ export const EpisodePage = () => {
             </div>
           </div>
 
-          <div className={s.episodesList}>
-            {episodes.map((episode) => (
-              <EpisodeCard episode={episode}/>
-            ))}
-          </div>
+          <EpisodeList episodes={episodes} />
 
           <div className={s.pagination}>
             <button
