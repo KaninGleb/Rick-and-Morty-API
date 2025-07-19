@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import { Icon } from '@/common/components'
+import {PageTitle, Icon} from '@/common/components'
 import s from './EpisodePage.module.css'
 
 export const EpisodePage = () => {
@@ -35,25 +35,12 @@ export const EpisodePage = () => {
 
   return (
     <div className={s.pageContainer}>
-      <div className={s.header}>
-        <h1 className={s.title}>
-          <span className={s.titleMain}>Rick and Morty</span>
-          <span className={s.titleSub}>Episode Multiverse</span>
-        </h1>
-
-        <div className={s.searchContainer}>
-          <input
-            type="search"
-            className={s.searchInput}
-            onChange={searchHandler}
-            placeholder="Search across dimensions... (e.g., Pilot, Rick Potion)"
-            value={searchQuery}
-          />
-          <div className={s.searchIcon}>
-            <Icon name={'search'} width={20} height={20} />
-          </div>
-        </div>
-      </div>
+      <PageTitle
+        title={'Episode Multiverse'}
+        searchQuery={searchQuery}
+        onSearch={searchHandler}
+        placeholder={'Search across dimensions... (e.g., Pilot, Rick Potion)'}
+      />
 
       {error && (
         <div className={s.errorMessage}>
