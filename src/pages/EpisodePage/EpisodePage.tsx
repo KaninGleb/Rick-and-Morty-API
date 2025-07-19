@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import { PageTitle, Icon } from '@/common/components'
+import {PageTitle, Icon, Pagination} from '@/common/components'
 import { EpisodeList } from '@/pages'
 import s from './EpisodePage.module.css'
 
@@ -72,27 +72,12 @@ export const EpisodePage = () => {
 
           <EpisodeList episodes={episodes} />
 
-          <div className={s.pagination}>
-            <button
-              className={`${s.navButton} ${s.previous} ${!info.prev && s.disabled}`}
-              disabled={!info.prev}
-              onClick={previousPageHandler}
-            >
-              <Icon name={'previous'} width={16} height={16} />
-              Previous
-            </button>
-            <div className={s.pageIndicator}>
-              Page {currentPage} of {info.pages}
-            </div>
-            <button
-              className={`${s.navButton} ${s.next} ${!info.next && s.disabled}`}
-              disabled={!info.next}
-              onClick={nextPageHandler}
-            >
-              Next
-              <Icon name={'next'} width={16} height={16} />
-            </button>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            pageInfo={info}
+            onPrev={previousPageHandler}
+            onNext={nextPageHandler}
+          />
         </>
       )}
     </div>
