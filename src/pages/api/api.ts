@@ -1,5 +1,5 @@
 import { instance } from '@/common'
-import type { BaseResponse, CharactersResults, LocationResults } from '@/pages/api/api.types.ts'
+import type { BaseResponse, CharactersResults, LocationResults, EpisodeResults } from '@/pages/api/api.types.ts'
 
 export const api = {
   getCharacters(url: string = `/character`) {
@@ -7,5 +7,8 @@ export const api = {
   },
   getLocations(url: string = `/location`) {
     return instance.get<BaseResponse<LocationResults>>(url)
+  },
+  getEpisodes(url: string = `/episode`) {
+    return instance.get<BaseResponse<EpisodeResults>>(url)
   },
 }
