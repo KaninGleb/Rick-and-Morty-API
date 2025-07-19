@@ -3,6 +3,7 @@ import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
 import {PageTitle, Icon} from '@/common/components'
+import {EpisodeCard} from '@/pages';
 import s from './EpisodePage.module.css'
 
 export const EpisodePage = () => {
@@ -23,14 +24,6 @@ export const EpisodePage = () => {
     const value = e.currentTarget.value
     setSearchQuery(value)
     fetchData(`/episode?name=${value}`)
-  }
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
   }
 
   return (
@@ -78,25 +71,8 @@ export const EpisodePage = () => {
           </div>
 
           <div className={s.episodesList}>
-            {episodes.map((e) => (
-              <div key={e.id} className={s.episodeCard}>
-                <div className={s.episodeHeader}>
-                  <span className={s.episodeCode}>{e.episode}</span>
-                  <span className={s.episodeAirDate}>{e.air_date || 'Unknown date'}</span>
-                </div>
-                <h2 className={s.episodeName}>{e.name}</h2>
-
-                <div className={s.episodeMeta}>
-                  <div className={s.metaItem}>
-                    <span className={s.metaLabel}>Characters:</span>
-                    <span className={s.metaValue}>{e.characters.length || 0}</span>
-                  </div>
-                  <div className={s.metaItem}>
-                    <span className={s.metaLabel}>Created:</span>
-                    <span className={s.metaValue}>{formatDate(e.created)}</span>
-                  </div>
-                </div>
-              </div>
+            {episodes.map((episode) => (
+              <EpisodeCard episode={episode}/>
             ))}
           </div>
 
