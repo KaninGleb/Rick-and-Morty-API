@@ -1,13 +1,14 @@
-import {type ChangeEvent, useState} from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import { PageTitle } from '@/common/components'
+import { PageTitle, Pagination } from '@/common/components'
 import s from './LocationPage.module.css'
 
 export const LocationPage = () => {
   const {
     data: locations,
     info,
+    currentPage,
     error,
     nextPageHandler,
     previousPageHandler,
@@ -54,14 +55,7 @@ export const LocationPage = () => {
             ))}
           </div>
 
-          <div className={s.buttonContainer}>
-            <button className={s.linkButton} disabled={!info.prev} onClick={previousPageHandler}>
-              Previous
-            </button>
-            <button className={s.linkButton} disabled={!info.next} onClick={nextPageHandler}>
-              Next
-            </button>
-          </div>
+          <Pagination currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
         </>
       )}
     </div>
