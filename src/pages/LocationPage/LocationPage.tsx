@@ -2,6 +2,7 @@ import { type ChangeEvent, useState } from 'react'
 import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
 import { PageTitle, Pagination } from '@/common/components'
+import { LocationsList } from '@/pages/LocationPage/LocationsList/LocationsList.tsx'
 import s from './LocationPage.module.css'
 
 export const LocationPage = () => {
@@ -36,24 +37,7 @@ export const LocationPage = () => {
 
       {!error && locations.length > 0 && (
         <>
-          <div className={s.locationsList}>
-            {locations.map((l) => (
-              <div key={l.id} className={s.locationCard}>
-                <h2 className={s.locationName}>{l.name}</h2>
-                <div className={s.locationInfo}>
-                  <p>
-                    <span className={s.label}>🧭 Type:</span> {l.type || 'Unknown'}
-                  </p>
-                  <p>
-                    <span className={s.label}>🌌 Dimension:</span> {l.dimension || 'Unknown'}
-                  </p>
-                  <p>
-                    <span className={s.label}>👥 Residents:</span> {l.residents.length}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <LocationsList locations={locations} />
 
           <Pagination currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
         </>
