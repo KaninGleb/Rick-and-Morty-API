@@ -1,7 +1,8 @@
+import {type ChangeEvent, useState} from 'react'
 import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
+import { PageTitle } from '@/common/components'
 import s from './LocationPage.module.css'
-import type { ChangeEvent } from 'react'
 
 export const LocationPage = () => {
   const {
@@ -13,15 +14,22 @@ export const LocationPage = () => {
     fetchData,
   } = usePaginatedData<LocationResults>(api.getLocations, '/location')
 
+  const [searchQuery, setSearchQuery] = useState('')
+
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
+    setSearchQuery(value)
     fetchData(`/location?name=${value}`)
   }
 
   return (
     <div className={s.pageContainer}>
-      <h1 className={s.pageTitle}>Locations</h1>
-      <input type="search" className={s.search} onChange={searchHandler} placeholder="🔍 Search location by name..." />
+      <PageTitle
+        title={'Location Multiverse'}
+        searchQuery={searchQuery}
+        onSearch={searchHandler}
+        placeholder={'Search across locations... (e.g., Earth, Post-Apocalyptic Earth)'}
+      />
 
       {error && <div className={s.errorMessage}>{error}</div>}
 
