@@ -1,7 +1,7 @@
 import { type ChangeEvent, useState } from 'react'
 import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import { PageTitle, Pagination } from '@/common/components'
+import { ErrorMessage, Loader, PageTitle, Pagination } from '@/common/components'
 import { LocationsList } from './LocationsList/LocationsList'
 import s from './LocationPage.module.css'
 
@@ -11,6 +11,7 @@ export const LocationPage = () => {
     info,
     currentPage,
     error,
+    isLoading,
     nextPageHandler,
     previousPageHandler,
     fetchData,
@@ -33,7 +34,9 @@ export const LocationPage = () => {
         placeholder={'Search across locations... (e.g., Earth, Post-Apocalyptic Earth)'}
       />
 
-      {error && <div className={s.errorMessage}>{error}</div>}
+      {error && <ErrorMessage error={error} />}
+
+      {isLoading && <Loader />}
 
       {!error && locations.length > 0 && (
         <>
