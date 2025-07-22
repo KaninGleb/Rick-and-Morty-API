@@ -34,7 +34,7 @@ export const LocationPage = () => {
         placeholder={'Search across locations... (e.g., Earth, Post-Apocalyptic Earth)'}
       />
 
-      {error && <ErrorMessage error={error} />}
+      {!isLoading && error && <ErrorMessage error={error} />}
 
       {isLoading && <Loader />}
 
