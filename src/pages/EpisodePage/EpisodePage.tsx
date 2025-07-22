@@ -2,8 +2,9 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import {PageTitle, Icon, Pagination} from '@/common/components'
+import { PageTitle, Icon, Pagination } from '@/common/components'
 import { EpisodeList } from '@/pages'
+import { EpisodesInfoBar } from '@/pages/EpisodePage/EpisodesInfoBar/EpisodesInfoBar.tsx'
 import s from './EpisodePage.module.css'
 
 export const EpisodePage = () => {
@@ -59,25 +60,11 @@ export const EpisodePage = () => {
 
       {!error && !isLoading && episodes.length > 0 && (
         <>
-          <div className={s.infoBar}>
-            <div className={s.infoItem}>
-              <span className={s.infoLabel}>Current Dimension:</span>
-              <span className={s.infoValue}>C-{Math.floor(Math.random() * 1000)}</span>
-            </div>
-            <div className={s.infoItem}>
-              <span className={s.infoLabel}>Total Episodes:</span>
-              <span className={s.infoValue}>{info.count || 'Unknown'}</span>
-            </div>
-          </div>
+          <EpisodesInfoBar totalEpisodesCount={info.count} />
 
           <EpisodeList episodes={episodes} />
 
-          <Pagination
-            currentPage={currentPage}
-            pageInfo={info}
-            onPrev={previousPageHandler}
-            onNext={nextPageHandler}
-          />
+          <Pagination currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
         </>
       )}
     </div>

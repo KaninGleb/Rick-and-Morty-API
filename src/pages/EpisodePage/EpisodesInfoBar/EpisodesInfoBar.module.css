@@ -1,0 +1,23 @@
+.infoBar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.infoItem {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.infoLabel {
+    color: #7f8c8d;
+}
+
+.infoValue {
+    font-weight: 600;
+    color: #42b883;
+}
