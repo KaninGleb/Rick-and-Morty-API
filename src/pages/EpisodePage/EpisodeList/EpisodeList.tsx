@@ -1,5 +1,5 @@
 import type { EpisodeResults } from '@/pages/api'
-import { EpisodeCard } from '@/pages'
+import { EpisodeCard } from './EpisodeCard/EpisodeCard'
 import s from './EpisodeList.module.css'
 
 type Props = {

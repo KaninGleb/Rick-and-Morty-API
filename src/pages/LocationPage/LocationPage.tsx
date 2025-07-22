@@ -2,7 +2,7 @@ import { type ChangeEvent, useState } from 'react'
 import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
 import { PageTitle, Pagination } from '@/common/components'
-import { LocationsList } from '@/pages/LocationPage/LocationsList/LocationsList.tsx'
+import { LocationsList } from './LocationsList/LocationsList'
 import s from './LocationPage.module.css'
 
 export const LocationPage = () => {
