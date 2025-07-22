@@ -1,4 +1,5 @@
 import { Icon } from '@/common/components'
+import type { Info } from '@/pages/api'
 import s from './Pagination.module.css'
 
 type PaginationPropsType = {
@@ -15,11 +16,7 @@ export const Pagination = ({ currentPage, pageInfo, onPrev, onNext }: Pagination
 
   return (
     <div className={s.pagination}>
-      <button
-        className={`${s.navButton} ${s.previous} ${!hasPrev && s.disabled}`}
-        disabled={!hasPrev}
-        onClick={onPrev}
-      >
+      <button className={`${s.navButton} ${s.previous} ${!hasPrev && s.disabled}`} disabled={!hasPrev} onClick={onPrev}>
         <Icon name="previous" width={16} height={16} />
         Previous
       </button>
