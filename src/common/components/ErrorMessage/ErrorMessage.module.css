@@ -1,0 +1,15 @@
+.errorMessage {
+    background-color: var(--color-danger);
+    color: var(--color-background);
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 2rem auto;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.errorMessage svg {
+    stroke-width: 2;
+}
