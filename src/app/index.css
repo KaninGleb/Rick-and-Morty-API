@@ -32,6 +32,37 @@
     --color-loader-border: rgba(66, 184, 131, 0.2);
     --color-shadow: rgba(0, 0, 0, 0.05);
     --color-shadow-hover: rgba(0, 0, 0, 0.1);
+
+    --color-bg-light: #ffffff;
+    --color-bg-subtle: #f9fafb;
+    --color-border-accent: #4fd1c5;
+    --color-border-strong: #38b2ac;
+
+    --color-title: #1a202c;
+    --color-text-muted: #4a5568;
+    --color-label: #319795;
+
+    --color-card-gradient: linear-gradient(145deg, #f9f9fb, #f1f4f8);
+    --color-hover-glow: rgba(79, 209, 197, 0.2);
+    --color-icon: #38b2ac;
+
+    --primary-color: #2e8b57;
+    --secondary-color: #4682b4;
+    --card-background: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --highlight-color: #fef3c7;
+    --error-bg: #fef2f2;
+    --error-text: #dc2626;
+    --accent-gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {

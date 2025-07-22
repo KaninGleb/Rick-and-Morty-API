@@ -18,7 +18,8 @@ export const LocationsList = ({ locations }: LocationsListPropsType) => (
             <span className={s.label}>🌌 Dimension:</span> {l.dimension || 'Unknown'}
           </p>
           <p>
-            <span className={s.label}>👥 Residents:</span> {l.residents.length}
+            <span className={s.label}>👥 Residents:</span>{' '}
+            <span className={s.residentsCount}>{l.residents.length}</span>
           </p>
         </div>
       </div>
