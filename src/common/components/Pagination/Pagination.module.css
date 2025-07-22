@@ -4,12 +4,13 @@
     align-items: center;
     gap: 1rem;
     margin-top: 2rem;
+    --font-size: 20px;
 }
 
 .navButton {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
     background-color: var(--color-primary);
     color: var(--color-background);
     border: none;
@@ -17,6 +18,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-size: var(--font-size);
 }
 
 .navButton.previous {
@@ -46,6 +48,6 @@
 }
 
 .pageIndicator {
+    font-size: 1.2rem;
     color: var(--color-primary-light);
-    font-size: 0.9rem;
 }

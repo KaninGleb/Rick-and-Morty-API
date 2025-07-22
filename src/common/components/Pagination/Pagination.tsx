@@ -17,7 +17,7 @@ export const Pagination = ({ currentPage, pageInfo, onPrev, onNext }: Pagination
   return (
     <div className={s.pagination}>
       <button className={`${s.navButton} ${s.previous} ${!hasPrev && s.disabled}`} disabled={!hasPrev} onClick={onPrev}>
-        <Icon name="previous" width={16} height={16} />
+        <Icon name="previous" width={20} height={20} />
         Previous
       </button>
       <div className={s.pageIndicator}>
@@ -25,7 +25,7 @@ export const Pagination = ({ currentPage, pageInfo, onPrev, onNext }: Pagination
       </div>
       <button className={`${s.navButton} ${s.next} ${!hasNext && s.disabled}`} disabled={!hasNext} onClick={onNext}>
         Next
-        <Icon name="next" width={16} height={16} />
+        <Icon name="next" width={20} height={20} />
       </button>
     </div>
   )
