@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import { PageTitle, ErrorMessage, Icon, Pagination } from '@/common/components'
+import {PageTitle, ErrorMessage, Loader, Icon, Pagination} from '@/common/components'
 import { EpisodeList } from '@/pages'
 import { EpisodesInfoBar } from '@/pages/EpisodePage/EpisodesInfoBar/EpisodesInfoBar.tsx'
 import s from './EpisodePage.module.css'
@@ -36,14 +36,9 @@ export const EpisodePage = () => {
         placeholder={'Search across dimensions... (e.g., Pilot, Rick Potion)'}
       />
 
-      <ErrorMessage error={error} />
+      {error && <ErrorMessage error={error} />}
 
-      {isLoading && (
-        <div className={s.loader}>
-          <div className={s.loaderAnimation}></div>
-          <span>Scanning the multiverse for episodes...</span>
-        </div>
-      )}
+      {isLoading && <Loader />}
 
       {!error && !isLoading && episodes.length === 0 && (
         <div className={s.noResults}>
