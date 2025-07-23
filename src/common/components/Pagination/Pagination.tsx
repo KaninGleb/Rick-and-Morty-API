@@ -1,16 +1,15 @@
 import { Icon } from '@/common/components'
 import type { Info } from '@/pages/api'
+import type { PagesColorType } from '@/common'
 import s from './Pagination.module.css'
 
 type PaginationPropsType = {
+  colorType?: PagesColorType
   currentPage: number
   pageInfo: Info
   onPrev: () => void
   onNext: () => void
-  colorType?: PaginationType
 }
-
-type PaginationType = 'locations' | 'episodes'
 
 export const Pagination = ({ colorType, currentPage, pageInfo, onPrev, onNext }: PaginationPropsType) => {
   const hasPrev = Boolean(pageInfo.prev)
@@ -22,7 +21,7 @@ export const Pagination = ({ colorType, currentPage, pageInfo, onPrev, onNext }:
   return (
     <div className={s.pagination}>
       <button
-        style={ hasPrev ? { backgroundColor } : undefined }
+        style={hasPrev ? { backgroundColor } : undefined}
         className={`${s.navButton} ${s.previous} ${!hasPrev && s.disabled}`}
         disabled={!hasPrev}
         onClick={onPrev}
@@ -34,7 +33,7 @@ export const Pagination = ({ colorType, currentPage, pageInfo, onPrev, onNext }:
         Page {currentPage} of {totalPages}
       </div>
       <button
-        style={ hasNext ? { backgroundColor } : undefined }
+        style={hasNext ? { backgroundColor } : undefined}
         className={`${s.navButton} ${s.next} ${!hasNext && s.disabled}`}
         disabled={!hasNext}
         onClick={onNext}
