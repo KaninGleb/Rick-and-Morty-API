@@ -28,7 +28,7 @@ export const EpisodePage = () => {
   }
 
   return (
-    <div className={s.pageContainer}>
+    <div className={'pageContainer'}>
       <PageTitle
         title={'Episode Multiverse'}
         searchQuery={searchQuery}
