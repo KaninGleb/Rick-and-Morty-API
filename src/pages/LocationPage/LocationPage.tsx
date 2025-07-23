@@ -42,7 +42,13 @@ export const LocationPage = () => {
         <>
           <LocationsList locations={locations} />
 
-          <Pagination currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
+          <Pagination
+            colorType={'locations'}
+            currentPage={currentPage}
+            pageInfo={info}
+            onPrev={previousPageHandler}
+            onNext={nextPageHandler}
+          />
         </>
       )}
     </div>

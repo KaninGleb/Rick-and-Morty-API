@@ -58,7 +58,7 @@
     width: 50px;
     height: 3px;
     border-radius: 2px;
-    background-color: var(--color-border-strong);
+    background-color: var(--color-border-accent);
     transition: width 0.3s ease;
 }
 
@@ -110,6 +110,6 @@
 }
 
 .residentsCount:hover {
-    color: var(--primary-color);
+    color: var(--episodes-primary-color);
     transform: scale(1.1);
 }
