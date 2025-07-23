@@ -22,11 +22,29 @@
 }
 
 .navLocations {
-    background-color: var(--color-border-accent);
+    background-color: var(--locations-color-primary);
 }
 
 .navEpisodes {
     background-color: var(--episodes-primary-color);
+}
+
+.navButton.navEpisodes:hover:not(:disabled) {
+    background-color: var(--episodes-primary-color-hover);
+    transform: translateY(-2px);
+}
+
+.navButton.navEpisodes:active:not(:disabled) {
+    background-color: var(--episodes-primary-color-active);
+}
+
+.navButton.navLocations:hover:not(:disabled) {
+    background-color: var(--locations-color-primary-hover);
+    transform: translateY(-2px);
+}
+
+.navButton.navLocations:active:not(:disabled) {
+    background-color: var(--locations-color-primary-active);
 }
 
 .navButton.previous {
@@ -39,11 +57,6 @@
 
 .navButton svg {
     stroke-width: 2;
-}
-
-.navButton:hover:not(:disabled) {
-    background-color: var(--color-primary-dark);
-    transform: translateY(-2px);
 }
 
 .navButton:disabled {

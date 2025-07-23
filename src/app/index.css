@@ -35,8 +35,9 @@
 
     --color-bg-light: #ffffff;
     --color-bg-subtle: #f9fafb;
-    --color-border-accent: #4fd1c5;
-    /*--color-border-strong: #38b2ac;*/
+    --locations-color-primary: #4fd1c5;
+    --locations-color-primary-hover: #38b2a5;
+    --locations-color-primary-active: #2f9087;
 
     --color-title: #1a202c;
     --color-text-muted: #4a5568;
@@ -47,6 +48,8 @@
     --color-icon: #38b2ac;
 
     --episodes-primary-color: #4bcd93;
+    --episodes-primary-color-hover: #3bb67f;
+    --episodes-primary-color-active: #309b6d;
     --secondary-color: #4682b4;
     --card-background: #ffffff;
     --text-primary: #1f2937;

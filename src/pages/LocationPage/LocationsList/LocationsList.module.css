@@ -14,8 +14,8 @@
     transition: 0.3s ease;
     position: relative;
     overflow: hidden;
-    border-left: 6px solid var(--color-border-accent);
-    border-bottom: 3px solid var(--color-border-accent);
+    border-left: 6px solid var(--locations-color-primary);
+    border-bottom: 3px solid var(--locations-color-primary);
 }
 
 .locationCard::before {
@@ -58,7 +58,7 @@
     width: 50px;
     height: 3px;
     border-radius: 2px;
-    background-color: var(--color-border-accent);
+    background-color: var(--locations-color-primary);
     transition: width 0.3s ease;
 }
 

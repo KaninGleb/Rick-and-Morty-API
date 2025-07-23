@@ -22,7 +22,7 @@
 }
 
 .locationsTitle {
-    background: linear-gradient(90deg, var(--color-border-accent), var(--color-accent));
+    background: linear-gradient(90deg, var(--locations-color-primary), var(--color-accent));
     background-clip: text;
 }
 
