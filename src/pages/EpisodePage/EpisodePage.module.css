@@ -34,7 +34,7 @@
 }
 
 .characterLink a {
-    color: var(--color-primary);
+    color: var(--episodes-primary-color);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;

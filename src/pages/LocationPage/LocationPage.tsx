@@ -28,6 +28,7 @@ export const LocationPage = () => {
   return (
     <div className={s.pageContainer}>
       <PageTitle
+        colorType={'locations'}
         title={'Location Multiverse'}
         searchQuery={searchQuery}
         onSearch={searchHandler}

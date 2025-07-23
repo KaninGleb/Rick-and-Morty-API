@@ -4,8 +4,8 @@
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    border-left: 6px solid var(--color-primary);
-    border-bottom: 3px solid var(--color-primary);
+    border-left: 6px solid var(--episodes-primary-color);
+    border-bottom: 3px solid var(--episodes-primary-color);
     box-shadow: 0 6px 16px var(--color-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -60,7 +60,7 @@
     width: 50px;
     height: 3px;
     border-radius: 2px;
-    background-color: var(--color-primary);
+    background-color: var(--episodes-primary-color);
     transition: width 0.3s ease;
 }
 
@@ -110,6 +110,6 @@
     position: relative;
     top: -1px;
     vertical-align: middle;
-    background-color: var(--color-primary);
+    background-color: var(--episodes-primary-color);
     transition: .3s ease;
 }
