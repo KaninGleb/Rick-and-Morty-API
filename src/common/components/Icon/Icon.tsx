@@ -1,4 +1,4 @@
-import { SVGProps } from 'react'
+import { type SVGProps, type ReactElement } from 'react'
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   name: 'search' | 'error' | 'noResults' | 'previous' | 'next'
@@ -7,7 +7,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 }
 
 export const Icon = ({ name, width = 24, height = 24, ...props }: IconProps) => {
-  const icons: Record<IconProps['name'], JSX.Element> = {
+  const icons: Record<IconProps['name'], ReactElement> = {
     search: (
       <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
         <circle cx="11" cy="11" r="8" />
