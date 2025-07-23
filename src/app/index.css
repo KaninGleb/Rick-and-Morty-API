@@ -74,7 +74,8 @@ body {
 
 .pageContainer {
     width: 1400px;
-    margin: 0 auto 50px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
 }
 
 /* Pages */

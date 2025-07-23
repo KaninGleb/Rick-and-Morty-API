@@ -3,7 +3,6 @@ import { api, type LocationResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
 import { ErrorMessage, Loader, PageTitle, Pagination } from '@/common/components'
 import { LocationsList } from './LocationsList/LocationsList'
-import s from './LocationPage.module.css'
 
 export const LocationPage = () => {
   const {
@@ -26,7 +25,7 @@ export const LocationPage = () => {
   }
 
   return (
-    <div className={s.pageContainer}>
+    <div className={'pageContainer'}>
       <PageTitle
         colorType={'locations'}
         title={'Location Multiverse'}
