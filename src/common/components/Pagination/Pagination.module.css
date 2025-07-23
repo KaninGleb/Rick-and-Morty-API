@@ -21,6 +21,14 @@
     font-size: var(--font-size);
 }
 
+.navLocations {
+    background-color: var(--color-border-accent);
+}
+
+.navEpisodes {
+    background-color: var(--episodes-primary-color);
+}
+
 .navButton.previous {
     padding: .75rem 1.5rem .75rem .8rem;
 }

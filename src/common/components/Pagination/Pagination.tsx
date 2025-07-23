@@ -16,13 +16,12 @@ export const Pagination = ({ colorType, currentPage, pageInfo, onPrev, onNext }:
   const hasNext = Boolean(pageInfo.next)
   const totalPages = pageInfo.pages ?? 1
 
-  const backgroundColor = colorType === 'locations' ? 'var(--color-border-accent)' : 'var(--episodes-primary-color)'
+  const colorClass = colorType === 'locations' ? s.navLocations : s.navEpisodes
 
   return (
     <div className={s.pagination}>
       <button
-        style={hasPrev ? { backgroundColor } : undefined}
-        className={`${s.navButton} ${s.previous} ${!hasPrev && s.disabled}`}
+        className={`${s.navButton} ${s.previous} ${colorClass} ${!hasPrev && s.disabled}`}
         disabled={!hasPrev}
         onClick={onPrev}
       >
@@ -33,8 +32,7 @@ export const Pagination = ({ colorType, currentPage, pageInfo, onPrev, onNext }:
         Page {currentPage} of {totalPages}
       </div>
       <button
-        style={hasNext ? { backgroundColor } : undefined}
-        className={`${s.navButton} ${s.next} ${!hasNext && s.disabled}`}
+        className={`${s.navButton} ${s.next} ${colorClass} ${!hasNext && s.disabled}`}
         disabled={!hasNext}
         onClick={onNext}
       >
