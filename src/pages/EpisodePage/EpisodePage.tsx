@@ -39,7 +39,7 @@ export const EpisodePage = () => {
 
       {error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader text={'Scanning the multiverse for episodes...'} />}
+      {isLoading && <Loader colorType={'episodes'} text={'Scanning the multiverse for episodes...'} />}
 
       {!error && !isLoading && episodes.length === 0 && (
         <div className={s.noResults}>
@@ -55,7 +55,7 @@ export const EpisodePage = () => {
 
           <EpisodeList episodes={episodes} />
 
-          <Pagination currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
+          <Pagination colorType={'episodes'} currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
         </>
       )}
     </div>

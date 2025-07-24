@@ -15,6 +15,11 @@
     animation: spin 1s ease-in-out infinite;
 }
 
+.loaderCharacters {
+    border: 4px solid var(--characters-color-loader-border);
+    border-top-color: var(--characters-color-primary);
+}
+
 .loaderEpisodes {
     border: 4px solid var(--episodes-color-loader-border);
     border-top-color: var(--episodes-primary-color);

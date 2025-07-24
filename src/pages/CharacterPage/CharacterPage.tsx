@@ -37,7 +37,7 @@ export const CharacterPage = () => {
 
       {!isLoading && error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader colorType={'locations'} text={'Scanning the multiverse for characters...'} />}
+      {isLoading && <Loader colorType={'characters'} text={'Scanning the multiverse for characters...'} />}
 
       {!error && characters.length > 0 && (
         <>
