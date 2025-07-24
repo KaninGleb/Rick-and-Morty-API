@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router'
-import { PATH } from '@/app/App.tsx'
+import { PATH } from '@/common/data/paths.ts'
 import s from './HomePage.module.css'
 
 export const HomePage = () => {

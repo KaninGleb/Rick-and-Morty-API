@@ -1,15 +1,8 @@
+import { Routes, Route } from 'react-router'
 import { Header } from '@/common'
 import { HomePage, LocationPage, EpisodePage } from '@/pages'
 import { CharacterPage, Character } from '@/pages/CharacterPage'
-import { Routes, Route } from 'react-router'
-
-export const PATH = {
-  Home: '/',
-  Characters: '/characters',
-  Character: '/characters/:id',
-  Locations: '/locations',
-  Episodes: '/episodes',
-} as const
+import { PATH } from '@/common/data/paths.ts'
 
 export const App = () => {
   return (
