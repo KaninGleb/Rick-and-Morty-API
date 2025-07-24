@@ -36,7 +36,7 @@ export const LocationPage = () => {
 
       {!isLoading && error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader />}
+      {isLoading && <Loader colorType={'locations'} text={'Scanning the multiverse for locations...'}/>}
 
       {!error && locations.length > 0 && (
         <>

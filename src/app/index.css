@@ -30,7 +30,6 @@
     --color-disabled: #bdc3c7;
     --color-placeholder: #aaa;
     --color-overlay: rgba(0, 0, 0, 0.05);
-    --color-loader-border: rgba(66, 184, 131, 0.2);
     --color-shadow: rgba(0, 0, 0, 0.05);
     --color-shadow-hover: rgba(0, 0, 0, 0.1);
 
@@ -39,6 +38,7 @@
     --locations-color-primary: #4fd1c5;
     --locations-color-primary-hover: #38b2a5;
     --locations-color-primary-active: #2f9087;
+    --locations-color-loader-border: rgba(51, 239, 225, 0.2);
 
     --color-title: #1a202c;
     --color-text-muted: #4a5568;
@@ -51,6 +51,7 @@
     --episodes-primary-color: #4bcd93;
     --episodes-primary-color-hover: #3bb67f;
     --episodes-primary-color-active: #309b6d;
+    --episodes-color-loader-border: rgba(39, 238, 149, 0.2);
     --secondary-color: #4682b4;
     --card-background: #ffffff;
     --text-primary: #1f2937;

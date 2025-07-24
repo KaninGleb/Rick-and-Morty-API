@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { api, type EpisodeResults } from '@/pages/api'
 import { usePaginatedData } from '@/common/hooks'
-import {PageTitle, ErrorMessage, Loader, Icon, Pagination} from '@/common/components'
+import { PageTitle, ErrorMessage, Loader, Icon, Pagination } from '@/common/components'
 import { EpisodeList } from '@/pages'
 import { EpisodesInfoBar } from '@/pages/EpisodePage/EpisodesInfoBar/EpisodesInfoBar.tsx'
 import s from './EpisodePage.module.css'
@@ -38,7 +38,7 @@ export const EpisodePage = () => {
 
       {error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader />}
+      {isLoading && <Loader text={'Scanning the multiverse for episodes...'} />}
 
       {!error && !isLoading && episodes.length === 0 && (
         <div className={s.noResults}>
