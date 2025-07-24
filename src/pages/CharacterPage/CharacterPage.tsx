@@ -41,18 +41,19 @@ export const CharacterPage = () => {
 
       {!error && characters.length > 0 && (
         <>
-          {
-            <div className={s.characters}>
-              {characters.map((character) => (
-                <div key={character.id} className={s.character}>
-                  <Link to={`/characters/${character.id}`} className={s.characterLink}>
-                    {character.name}
-                  </Link>
-                  <img src={character.image} alt={`${character.name} avatar`} />
+          <div className={s.characters}>
+            {characters.map((character) => (
+              <Link className={s.characterLink} key={character.id} to={`/characters/${character.id}`}>
+                <div className={s.card}>
+                  <img className={s.avatar} src={character.image} alt={`${character.name} avatar`} />
+
+                  <div className={s.info}>
+                    <h3 className={s.name}>{character.name}</h3>
+                  </div>
                 </div>
-              ))}
-            </div>
-          }
+              </Link>
+            ))}
+          </div>
 
           <Pagination
             colorType={'locations'}

@@ -1,25 +1,88 @@
 .characters {
     display: flex;
     flex-wrap: wrap;
-}
-
-.character {
-    margin: 10px;
-    padding: 10px;
-    width: 300px;
-    background-color: var(--slate-700);
-    border-radius: 5px;
+    gap: 1.75rem;
+    margin-bottom: 3rem;
+    justify-content: center;
 }
 
 .characterLink {
-    color: var(--slate-50);
-    font-weight: bold;
-    font-size: 32px;
-    margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
     display: block;
-    text-align: center;
+    position: relative;
+    z-index: 1;
+}
 
-    &:hover {
-        text-decoration: none;
-    }
+.card {
+    background: var(--color-card-gradient);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 16px var(--color-shadow);
+    transition: 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-left: 6px solid var(--characters-color-primary);
+    border-bottom: 3px solid var(--characters-color-primary);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, var(--characters-color-loader-border), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 14px 30px var(--color-shadow-hover);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.avatar {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.info {
+    padding: 16px 16px 0 16px;
+    display: flex;
+}
+
+.name {
+    margin: 0 auto;
+    position: relative;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--characters-color-primary);
+    display: inline-block;
+    padding-bottom: 4px;
+    overflow: hidden;
+}
+
+.name::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background-color: var(--characters-color-primary-hover);
+    border-radius: 2px;
+    transition: width 0.3s ease-in-out;
+}
+
+.card:hover .name::after {
+    width: 100%;
 }
