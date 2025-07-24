@@ -1,28 +1,34 @@
-import { logo } from '@/assets'
 import { NavLink } from 'react-router'
-import { PATH } from '@/app/App.tsx'
+import { logo } from '@/assets'
+import { PATH } from '@/common/data/paths.ts'
 import s from './Header.module.css'
+
+const navItems = [
+  { path: PATH.Home, label: 'Home' },
+  { path: PATH.Characters, label: 'Characters' },
+  { path: PATH.Locations, label: 'Locations' },
+  { path: PATH.Episodes, label: 'Episodes' },
+]
 
 export const Header = () => {
   return (
-    <div className={s.container}>
-      <NavLink to={PATH.Home}>
-        <img className={s.logo} src={logo} alt="logotype" />
-      </NavLink>
-      <nav>
-        <NavLink to={PATH.Home} className={s.headerLink}>
-          Home
+    <header className={s.header}>
+      <div className={s.container}>
+        <NavLink to={PATH.Home} className={s.logoLink} aria-label={'Go to home page'}>
+          <img className={s.logo} src={logo} alt={'Site logo'} />
         </NavLink>
-        <NavLink to={PATH.Characters} className={s.headerLink}>
-          Characters
-        </NavLink>
-        <NavLink to={PATH.Locations} className={s.headerLink}>
-          Locations
-        </NavLink>
-        <NavLink to={PATH.Episodes} className={s.headerLink}>
-          Episodes
-        </NavLink>
-      </nav>
-    </div>
+        <nav role={'navigation'} aria-label={'Main navigation'}>
+          <ul className={s.navList}>
+            {navItems.map(({ path, label }) => (
+              <li key={path}>
+                <NavLink to={path} className={({ isActive }) => `${s.headerLink} ${isActive ? s.activeLink : ''}`}>
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
   )
 }
