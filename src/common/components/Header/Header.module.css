@@ -1,23 +1,78 @@
+.header {
+    background-color: var(--color-background-alt);
+    box-shadow: 0 2px 8px var(--color-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
 .container {
-    margin: 20px 0 10px 50px;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 64px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding-bottom: 5px;
+    justify-content: space-between;
+}
+
+.logoLink {
+    display: inline-flex;
+    align-items: center;
 }
 
 .logo {
-    width: 40px;
     height: 40px;
+    width: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.2s ease;
+}
+
+.logoLink:hover .logo,
+.logoLink:focus .logo {
+    transform: scale(1.05);
+    outline: none;
+}
+
+.navList {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .headerLink {
-    color: var(--slate-800);
-    font-size: 18px;
-    text-align: center;
-    margin-right: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--slate-700);
+    text-decoration: none;
+    padding: 8px 4px;
+    position: relative;
+    transition: color 0.3s ease;
+    border-radius: 4px;
+}
 
-    &:hover {
-        text-decoration: none;
-    }
+.headerLink:hover,
+.headerLink:focus {
+    color: var(--episodes-header-color-primary);
+    outline: none;
+    background-color: var(--slate-200-20);
+}
+
+.activeLink {
+    color: var(--episodes-header-color-primary);
+    font-weight: 700;
+}
+
+.activeLink::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--episodes-header-color-primary);
+    border-radius: 2px 2px 0 0;
 }
