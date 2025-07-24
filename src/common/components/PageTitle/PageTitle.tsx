@@ -12,22 +12,28 @@ type HeaderProps = {
 }
 
 export const PageTitle = ({ colorType, title, searchQuery, onSearch, placeholder }: HeaderProps) => {
-  const colorClass = {
+  const titleColorClass = {
     characters: s.charactersTitle,
     locations: s.locationsTitle,
     episodes: s.episodesTitle,
   }
 
+  const inputColorClass = {
+    characters: s.charactersSearchInput,
+    locations: s.locationsSearchInput,
+    episodes: s.episodesSearchInput,
+  }
+
   return (
     <div className={s.header}>
       <h1 className={s.title}>
-        <span className={`${s.titleMain} ${colorClass[colorType]}`}>Rick and Morty</span>
+        <span className={`${s.titleMain} ${titleColorClass[colorType]}`}>Rick and Morty</span>
         <span className={s.titleSub}>{title}</span>
       </h1>
       <div className={s.searchContainer}>
         <input
           type={'search'}
-          className={s.searchInput}
+          className={`${s.searchInput} ${inputColorClass[colorType]}`}
           placeholder={placeholder}
           value={searchQuery}
           onChange={onSearch}
