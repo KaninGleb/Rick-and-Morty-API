@@ -1,1 +1,1 @@
-export type PagesColorType = 'locations' | 'episodes'
+export type PagesColorType = 'characters' | 'locations' | 'episodes'
