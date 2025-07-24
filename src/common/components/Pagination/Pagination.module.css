@@ -21,30 +21,43 @@
     font-size: var(--font-size);
 }
 
-.navLocations {
-    background-color: var(--locations-color-primary);
+.charactersNav {
+    background-color: var(--characters-color-primary);
 }
 
-.navEpisodes {
-    background-color: var(--episodes-primary-color);
-}
-
-.navButton.navEpisodes:hover:not(:disabled) {
-    background-color: var(--episodes-primary-color-hover);
+.navButton.charactersNav:hover:not(:disabled) {
+    background-color: var(--characters-color-primary-hover);
     transform: translateY(-2px);
 }
 
-.navButton.navEpisodes:active:not(:disabled) {
-    background-color: var(--episodes-primary-color-active);
+.navButton.charactersNav:active:not(:disabled) {
+    background-color: var(--characters-color-primary-active);
 }
 
-.navButton.navLocations:hover:not(:disabled) {
+.locationsNav {
+    background-color: var(--locations-color-primary);
+}
+
+.navButton.locationsNav:hover:not(:disabled) {
     background-color: var(--locations-color-primary-hover);
     transform: translateY(-2px);
 }
 
-.navButton.navLocations:active:not(:disabled) {
+.navButton.locationsNav:active:not(:disabled) {
     background-color: var(--locations-color-primary-active);
+}
+
+.episodesNav {
+    background-color: var(--episodes-primary-color);
+}
+
+.navButton.episodesNav:hover:not(:disabled) {
+    background-color: var(--episodes-primary-color-hover);
+    transform: translateY(-2px);
+}
+
+.navButton.episodesNav:active:not(:disabled) {
+    background-color: var(--episodes-primary-color-active);
 }
 
 .navButton.previous {

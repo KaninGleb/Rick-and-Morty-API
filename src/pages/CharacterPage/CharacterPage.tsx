@@ -56,7 +56,7 @@ export const CharacterPage = () => {
           </div>
 
           <Pagination
-            colorType={'locations'}
+            colorType={'characters'}
             currentPage={currentPage}
             pageInfo={info}
             onPrev={previousPageHandler}
