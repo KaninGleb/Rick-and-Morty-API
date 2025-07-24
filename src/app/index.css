@@ -33,6 +33,16 @@
     --color-shadow: rgba(0, 0, 0, 0.05);
     --color-shadow-hover: rgba(0, 0, 0, 0.1);
 
+    --characters-color-primary: #a178df;
+    --characters-color-primary-hover: #8f61d6;
+    --characters-color-primary-active: #7b4bc3;
+    --characters-color-loader-border: rgba(161, 120, 223, 0.3);
+
+    /*--characters-color-primary: #d14fd1;*/
+    /*--characters-color-primary-hover: #b738b7;*/
+    /*--characters-color-primary-active: #9b2f9b;*/
+    /*--characters-color-loader-border: rgba(209, 79, 209, 0.3);*/
+
     --color-bg-light: #ffffff;
     --color-bg-subtle: #f9fafb;
     --locations-color-primary: #4fd1c5;
