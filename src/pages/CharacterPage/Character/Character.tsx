@@ -2,67 +2,96 @@ import { Link, useParams } from 'react-router'
 import { useState, useEffect } from 'react'
 import { instance } from '@/common'
 import type { CharacterType } from '@/pages/CharacterPage'
+import { Loader } from '@/common/components'
+import { PATH } from '@/common/data/paths.ts'
 import s from './Character.module.css'
 
 export const Character = () => {
   const { id } = useParams()
 
   const [character, setCharacter] = useState<CharacterType | null>(null)
-
-  useEffect(() => {
-    instance.get(`/character/${id}`).then((res) => {
-      setCharacter(res.data)
-    })
-  }, [id])
+  const [error, setError] = useState<string | null>(null)
 
   const getStatusClassName = (status: string) => {
-    let characterStatus
     switch (status) {
       case 'Alive':
-        characterStatus = s.aliveStatus
-        break
+        return `${s.status} ${s.aliveStatus}`
 
       case 'Dead':
-        characterStatus = s.deadStatus
-        break
+        return `${s.status} ${s.deadStatus}`
 
       case 'unknown':
-        characterStatus = s.unknownStatus
-        break
+        return `${s.status} ${s.unknownStatus}`
 
       default:
-        characterStatus = ''
+        return s.status
     }
-
-    return `${s.status} ${characterStatus}`
   }
 
+  const getEpisodeId = (url: string) => url.split('/').pop()
+
+  useEffect(() => {
+    instance
+      .get(`/character/${id}`)
+      .then((res) => {
+        setCharacter(res.data)
+        setError(null)
+      })
+      .catch(() => {
+        setError('Failed to fetch character details.')
+      })
+  }, [id])
+
+  const infoFields = [
+    { title: 'Last known location', value: character?.location.name },
+    { title: 'Origin', value: character?.origin.name },
+    { title: 'Gender', value: character?.gender },
+    { title: 'Episodes', value: character?.episode.length },
+  ]
+
   return (
-    <div className="pageContainer">
-      {character !== null && (
+    <div className={s.pageContainer}>
+      {error && <div className={s.errorMessage}>{error}</div>}
+
+      {!character && !error && <Loader colorType={'characters'} text={'Loading character details...'} />}
+
+      {character && (
         <div className={s.container}>
-          <h1 className="pageTitle">{character.name}</h1>
+          <h1 className={s.pageTitle}>{character.name}</h1>
           <div className={s.content}>
-            <img className={s.img} src={character.image} alt="character" />
-            <div className={s.description}>
-              <div className={s.statusContainer}>
-                <div className={getStatusClassName(character.status)}></div>
-                <div>
-                  {character.status} - {character.species}
+            <div className={s.characterInfo}>
+              <img className={s.image} src={character.image} alt={`${character.name} portrait`} />
+              <div className={s.description}>
+                <div className={s.statusContainer}>
+                  <span className={getStatusClassName(character.status)}></span>
+                  <span className={s.statusText}>
+                    {character.status} - {character.species}
+                    {character.type && ` (${character.type})`}
+                  </span>
                 </div>
-              </div>
-              <div className={s.info}>
-                <p className={s.subTitle}>Last known location:</p>
-                <p className={s.subTitleResult}>{character.location.name}</p>
-              </div>
-              <div className={s.info}>
-                <p className={s.subTitle}>Episode count:</p>
-                <p className={s.subTitleResult}>{character.episode.length}</p>
+
+                {infoFields.map((field, i) => (
+                  <div key={i} className={s.info}>
+                    <span className={s.label}>{field.title}:</span>
+                    <span className={s.value}>{field.value}</span>
+                  </div>
+                ))}
               </div>
             </div>
+
+            <div className={s.episodeList}>
+              {character.episode.map((episodeUrl) => {
+                const id = getEpisodeId(episodeUrl)
+                return (
+                  <Link key={id} to={`${PATH.Episodes}/${id}`} className={s.episodeLink}>
+                    Episode {id}
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-          <Link to={'/characters'} className={'linkButton'}>
-            Go back
+          <Link to={PATH.Characters} className={s.backButton}>
+            Back to Characters
           </Link>
         </div>
       )}
