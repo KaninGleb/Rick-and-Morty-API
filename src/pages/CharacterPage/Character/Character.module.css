@@ -13,11 +13,13 @@
 }
 
 .pageTitle {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: var(--characters-color-primary);
-    position: relative;
-    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 900;
+    padding: 0 0.1em 0.6rem;
+    background-clip: text;
+    color: transparent;
+    background: linear-gradient(90deg, var(--characters-color-primary), var(--color-danger));
+    background-clip: text;
 }
 
 .pageTitle::after {
