@@ -28,11 +28,11 @@ export const CharacterPage = () => {
   return (
     <div className={'pageContainer'}>
       <PageTitle
-        colorType={'locations'}
+        colorType={'characters'}
         title={'Character Multiverse'}
         searchQuery={searchQuery}
         onSearch={searchHandler}
-        placeholder={'Search across characters... (e.g., Earth, Post-Apocalyptic Earth)'}
+        placeholder={'Search across characters... (e.g., Rick Sanchez, Morty Smith)'}
       />
 
       {!isLoading && error && <ErrorMessage error={error} />}

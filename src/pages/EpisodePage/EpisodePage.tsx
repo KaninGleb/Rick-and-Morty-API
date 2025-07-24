@@ -30,6 +30,7 @@ export const EpisodePage = () => {
   return (
     <div className={'pageContainer'}>
       <PageTitle
+        colorType={'episodes'}
         title={'Episode Multiverse'}
         searchQuery={searchQuery}
         onSearch={searchHandler}

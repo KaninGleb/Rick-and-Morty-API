@@ -4,7 +4,7 @@ import type { PagesColorType } from '@/common'
 import s from './PageTitle.module.css'
 
 type HeaderProps = {
-  colorType?: PagesColorType
+  colorType: PagesColorType
   title: string
   searchQuery: string
   placeholder: string
@@ -12,12 +12,16 @@ type HeaderProps = {
 }
 
 export const PageTitle = ({ colorType, title, searchQuery, onSearch, placeholder }: HeaderProps) => {
-  const headerColor = colorType === 'locations' ? s.locationsTitle : s.episodesTitle
+  const colorClass = {
+    characters: s.charactersTitle,
+    locations: s.locationsTitle,
+    episodes: s.episodesTitle,
+  }
 
   return (
     <div className={s.header}>
       <h1 className={s.title}>
-        <span className={`${s.titleMain} ${headerColor}`}>Rick and Morty</span>
+        <span className={`${s.titleMain} ${colorClass[colorType]}`}>Rick and Morty</span>
         <span className={s.titleSub}>{title}</span>
       </h1>
       <div className={s.searchContainer}>

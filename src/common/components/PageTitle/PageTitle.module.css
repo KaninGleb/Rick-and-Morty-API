@@ -21,6 +21,11 @@
     line-height: 1;
 }
 
+.charactersTitle {
+    background: linear-gradient(90deg, var(--characters-color-primary), var(--color-accent));
+    background-clip: text;
+}
+
 .locationsTitle {
     background: linear-gradient(90deg, var(--locations-color-primary), var(--color-accent));
     background-clip: text;
