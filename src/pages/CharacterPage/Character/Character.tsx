@@ -3,15 +3,14 @@ import { useState, useEffect } from 'react'
 import { instance } from '@/common'
 import { Loader } from '@/common/components'
 import { getStatusClassName, getEpisodeId } from './CharacterHelpers.ts'
-import type { CharacterType } from './Character.types.ts'
-import type { ErrorType } from '@/pages/api'
+import type { CharactersResults, ErrorType } from '@/pages/api'
 import { PATH } from '@/common/data/paths.ts'
 import s from './Character.module.css'
 
 export const Character = () => {
   const { id } = useParams()
 
-  const [character, setCharacter] = useState<CharacterType | null>(null)
+  const [character, setCharacter] = useState<CharactersResults | null>(null)
   const [error, setError] = useState<ErrorType>(null)
 
   const infoFields = character
