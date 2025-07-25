@@ -15,5 +15,3 @@ export const getStatusClassName = (status: string) => {
       return s.status
   }
 }
-
-export const getEpisodeId = (url: string) => url.split('/').pop()
