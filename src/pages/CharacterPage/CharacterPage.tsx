@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { usePaginatedData } from '@/common/hooks'
 import { api, type CharactersResults } from '@/pages/api'
 import { PageTitle, ErrorMessage, Loader, Pagination } from '@/common/components'
+import { PATH } from '@/common/data/paths.ts'
 import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => {
@@ -43,7 +44,7 @@ export const CharacterPage = () => {
         <>
           <div className={s.characters}>
             {characters.map((character) => (
-              <Link className={s.characterLink} key={character.id} to={`/characters/${character.id}`}>
+              <Link className={s.characterLink} key={character.id} to={`${PATH.Characters}/${character.id}`}>
                 <div className={s.card}>
                   <img className={s.avatar} src={character.image} alt={`${character.name} avatar`} />
 
