@@ -1,11 +1,11 @@
-import { Link, useParams } from 'react-router'
+import { useParams, Link } from 'react-router'
 import { useState, useEffect } from 'react'
 import { instance } from '@/common'
-import type { CharacterType } from '@/pages/CharacterPage'
 import { Loader } from '@/common/components'
-import { PATH } from '@/common/data/paths.ts'
 import { getStatusClassName, getEpisodeId } from './CharacterHelpers.ts'
+import type { CharacterType } from './Character.types.ts'
 import type { ErrorType } from '@/pages/api'
+import { PATH } from '@/common/data/paths.ts'
 import s from './Character.module.css'
 
 export const Character = () => {
