@@ -6,6 +6,14 @@
     justify-content: center;
 }
 
+.locationLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
 .locationCard {
     background: var(--color-card-gradient);
     border-radius: 14px;
