@@ -1,49 +1,49 @@
 .pageContainer {
-    max-width: var(--container-width);
     margin: 0 auto;
+    max-width: var(--container-width);
     padding-top: 32px;
 }
 
 .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    min-height: calc(100vh - 100px);
+    flex-direction: column;
     gap: 2rem;
+    min-height: calc(100vh - 100px);
 }
 
 .pageTitle {
-    font-size: 3.5rem;
-    font-weight: 900;
     padding: 0 0.1em 0.6rem;
-    background-clip: text;
     color: transparent;
     background: linear-gradient(90deg, var(--characters-color-primary), var(--color-danger));
+    font-size: 3.5rem;
+    font-weight: 900;
+    background-clip: text;
     background-clip: text;
 }
 
 .pageTitle::after {
-    content: '';
     position: absolute;
     bottom: -10px;
     left: 50%;
-    transform: translateX(-50%);
     width: 60px;
     height: 4px;
     background: var(--characters-color-primary-hover);
+    content: '';
+    transform: translateX(-50%);
     border-radius: 2px;
 }
 
 .content {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 16px;
     background: var(--color-card-gradient);
     box-shadow: 0 4px 20px var(--shadow-color);
     border-radius: 16px;
     overflow: hidden;
     max-width: 900px;
-    width: 100%;
-    padding: 16px;
 }
 
 .characterInfo {
@@ -60,9 +60,9 @@
 }
 
 .description {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 14px;
 }
 
@@ -70,16 +70,16 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    color: var(--text-primary);
     font-weight: 600;
     font-size: 1.1rem;
-    color: var(--text-primary);
 }
 
 .status {
     width: 14px;
     height: 14px;
-    border-radius: 50%;
     border: 2px solid white;
+    border-radius: 50%;
 }
 
 .aliveStatus {
@@ -105,28 +105,28 @@
 }
 
 .label {
+    color: var(--characters-color-primary);
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--characters-color-primary);
 }
 
 .value {
-    font-size: 1.05rem;
     color: var(--text-primary);
+    font-size: 1.05rem;
 }
 
 .episodeList {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(90px, max-content));
-    gap: 0.5rem;
     justify-content: start;
+    gap: 0.5rem;
 }
 
 
 .episodeLink {
     padding: 6px 12px;
-    background: var(--characters-color-primary);
     color: white;
+    background: var(--characters-color-primary);
     border-radius: 6px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -140,13 +140,13 @@
 
 .backButton {
     padding: 10px 24px;
-    background-color: var(--characters-color-primary);
     color: white;
+    box-shadow: 0 4px 12px var(--color-shadow);
+    background-color: var(--characters-color-primary);
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
-    box-shadow: 0 4px 12px var(--color-shadow);
     transition: background 0.25s ease, transform 0.2s ease;
 }
 
@@ -156,13 +156,13 @@
 }
 
 .errorMessage {
-    background-color: var(--error-bg);
-    color: var(--error-text);
-    padding: 16px;
-    border-radius: 8px;
     text-align: center;
-    max-width: 600px;
     margin: 24px auto;
-    font-weight: 500;
+    padding: 16px;
+    color: var(--error-text);
     box-shadow: 0 4px 12px var(--shadow-color);
+    background-color: var(--error-bg);
+    border-radius: 8px;
+    max-width: 600px;
+    font-weight: 500;
 }

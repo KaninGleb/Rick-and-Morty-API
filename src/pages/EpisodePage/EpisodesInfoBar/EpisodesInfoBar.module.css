@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-bottom: 2rem;
     padding: 1rem;
+    margin-bottom: 2rem;
     background-color: var(--color-overlay);
     border-radius: 8px;
 }
@@ -18,6 +18,6 @@
 }
 
 .infoValue {
-    font-weight: 600;
     color: var(--color-success);
+    font-weight: 600;
 }

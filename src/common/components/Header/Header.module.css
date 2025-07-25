@@ -1,19 +1,19 @@
 .header {
-    background-color: var(--color-background-alt);
-    box-shadow: 0 2px 8px var(--color-shadow);
     position: sticky;
     top: 0;
+    box-shadow: 0 2px 8px var(--color-shadow);
+    background-color: var(--color-background-alt);
     z-index: 100;
 }
 
 .container {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 64px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    max-width: var(--container-width);
 }
 
 .logoLink {
@@ -22,8 +22,8 @@
 }
 
 .logo {
-    height: 40px;
     width: auto;
+    height: 40px;
     user-select: none;
     -webkit-user-drag: none;
     transition: transform 0.2s ease;
@@ -38,18 +38,18 @@
 .navList {
     display: flex;
     gap: 24px;
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
 .headerLink {
+    position: relative;
+    padding: 8px 4px;
+    color: var(--slate-700);
     font-weight: 600;
     font-size: 1rem;
-    color: var(--slate-700);
     text-decoration: none;
-    padding: 8px 4px;
-    position: relative;
     transition: color 0.3s ease;
     border-radius: 4px;
 }
@@ -67,12 +67,12 @@
 }
 
 .activeLink::after {
-    content: '';
     position: absolute;
+    right: 0;
     bottom: -6px;
     left: 0;
-    right: 0;
     height: 3px;
     background: var(--episodes-header-color-primary);
+    content: '';
     border-radius: 2px 2px 0 0;
 }

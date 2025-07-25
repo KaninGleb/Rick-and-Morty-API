@@ -1,22 +1,22 @@
 .header {
+    position: relative;
     text-align: center;
     margin-bottom: 3rem;
-    position: relative;
 }
 
 .title {
-    margin-bottom: 2rem;
     position: relative;
     display: inline-block;
+    margin-bottom: 2rem;
 }
 
 .titleMain {
     display: block;
+    padding: 0 0.1em 0.6rem;
+    color: transparent;
     font-size: 3.5rem;
     font-weight: 900;
-    padding: 0 0.1em 0.6rem;
     background-clip: text;
-    color: transparent;
     letter-spacing: -1px;
     line-height: 1;
 }
@@ -38,9 +38,9 @@
 
 .titleSub {
     display: block;
+    color: var(--color-primary-light);
     font-size: 1.25rem;
     font-weight: 300;
-    color: var(--color-primary-light);
     margin-top: 0.5rem;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -48,25 +48,25 @@
 
 .searchContainer {
     position: relative;
-    max-width: 600px;
     margin: 0 auto;
+    max-width: 600px;
 }
 
 .searchInput {
     width: 100%;
     padding: 1rem 1.5rem 1rem 3rem;
-    border-radius: 50px;
     border: 0;
-    background-color: var(--color-background);
     color: var(--color-text);
+    border-radius: 50px;
+    background-color: var(--color-background);
     font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 .searchInput:focus {
+    box-shadow: unset;
     outline: none;
     background-color: #f0f0f0;
-    box-shadow: unset;
 }
 
 .charactersSearchInput:focus {
@@ -87,12 +87,12 @@
 
 .searchIcon {
     position: absolute;
-    left: 1rem;
     top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-placeholder);
+    left: 1rem;
     display: flex;
     align-items: center;
+    color: var(--color-placeholder);
+    transform: translateY(-50%);
 }
 
 .searchIcon svg {

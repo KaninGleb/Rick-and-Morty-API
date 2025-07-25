@@ -1,39 +1,39 @@
 .locationsList {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1.75rem;
     margin-bottom: 3rem;
-    justify-content: center;
 }
 
 .locationLink {
-    text-decoration: none;
-    color: inherit;
-    display: block;
     position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
     z-index: 1;
 }
 
 .locationCard {
-    background: var(--color-card-gradient);
-    border-radius: 14px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 16px var(--color-shadow);
-    transition: 0.3s ease;
     position: relative;
+    padding: 1.5rem;
+    background: var(--color-card-gradient);
+    box-shadow: 0 6px 16px var(--color-shadow);
+    border-radius: 14px;
+    transition: 0.3s ease;
     overflow: hidden;
     border-left: 6px solid var(--locations-color-primary);
     border-bottom: 3px solid var(--locations-color-primary);
 }
 
 .locationCard::before {
-    content: '';
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center, var(--color-hover-glow), transparent 60%);
+    content: '';
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 0;
@@ -41,8 +41,8 @@
 }
 
 .locationCard:hover {
-    transform: translateY(-10px);
     box-shadow: 0 14px 30px var(--color-shadow-hover);
+    transform: translateY(-10px);
 }
 
 .locationCard:hover::before {
@@ -50,21 +50,21 @@
 }
 
 .locationName {
+    position: relative;
     display: inline;
+    color: var(--color-title);
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--color-title);
-    position: relative;
     z-index: 1;
 }
 
 .locationName::after {
-    content: '';
     position: absolute;
     bottom: -4px;
     left: 0;
     width: 50px;
     height: 3px;
+    content: '';
     border-radius: 2px;
     background-color: var(--locations-color-primary);
     transition: width 0.3s ease;
@@ -77,29 +77,29 @@
 .locationInfo {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
     font-size: 1rem;
     margin-top: 10px;
-    color: var(--color-text-muted);
     line-height: 1.6;
-    gap: 0.5rem;
     z-index: 1;
 }
 
 .label {
-    font-weight: 600;
     color: var(--color-label);
+    font-weight: 600;
     margin-right: 0.25rem;
 }
 
 .label::after {
-    content: '';
-    margin-left: 8px;
+    position: relative;
+    top: -1px;
     display: inline-block;
     width: 8px;
     height: 8px;
+    content: '';
+    margin-left: 8px;
     border-radius: 50%;
-    position: relative;
-    top: -1px;
     vertical-align: middle;
     background-color: var(--secondary-color);
     transition: .3s ease;
@@ -111,8 +111,8 @@
 }
 
 .residentsCount {
-    font-weight: 600;
     color: var(--secondary-color);
+    font-weight: 600;
     cursor: pointer;
     transition: .3s ease;
 }

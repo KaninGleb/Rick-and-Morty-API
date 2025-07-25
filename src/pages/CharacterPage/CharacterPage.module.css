@@ -1,39 +1,39 @@
 .characters {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1.75rem;
     margin-bottom: 3rem;
-    justify-content: center;
 }
 
 .characterLink {
-    text-decoration: none;
-    color: inherit;
-    display: block;
     position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
     z-index: 1;
 }
 
 .card {
-    background: var(--color-card-gradient);
-    border-radius: 14px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 16px var(--color-shadow);
-    transition: 0.3s ease;
     position: relative;
+    padding: 1.5rem;
+    background: var(--color-card-gradient);
+    box-shadow: 0 6px 16px var(--color-shadow);
+    border-radius: 14px;
+    transition: 0.3s ease;
     overflow: hidden;
     border-left: 6px solid var(--characters-color-primary);
     border-bottom: 3px solid var(--characters-color-primary);
 }
 
 .card::before {
-    content: '';
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center, var(--characters-color-loader-border), transparent 60%);
+    content: '';
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 0;
@@ -41,8 +41,8 @@
 }
 
 .card:hover {
-    transform: translateY(-10px);
     box-shadow: 0 14px 30px var(--color-shadow-hover);
+    transform: translateY(-10px);
 }
 
 .card:hover::before {
@@ -50,34 +50,34 @@
 }
 
 .avatar {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
 }
 
 .info {
-    padding: 16px 16px 0 16px;
     display: flex;
+    padding: 16px 16px 0 16px;
 }
 
 .name {
-    margin: 0 auto;
     position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    color: var(--characters-color-primary);
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--characters-color-primary);
-    display: inline-block;
     padding-bottom: 4px;
     overflow: hidden;
 }
 
 .name::after {
-    content: '';
     position: absolute;
     bottom: 3px;
     left: 0;
-    height: 3px;
     width: 0;
+    height: 3px;
+    content: '';
     background-color: var(--characters-color-primary-hover);
     border-radius: 2px;
     transition: width 0.3s ease-in-out;

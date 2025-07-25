@@ -1,7 +1,7 @@
 .pagination {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
     --font-size: 20px;
@@ -11,9 +11,9 @@
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    background-color: var(--episodes-primary-color);
-    color: var(--color-background);
     border: none;
+    color: var(--color-background);
+    background-color: var(--episodes-primary-color);
     border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
@@ -82,6 +82,6 @@
 }
 
 .pageIndicator {
-    font-size: 1.2rem;
     color: var(--color-primary-light);
+    font-size: 1.2rem;
 }
