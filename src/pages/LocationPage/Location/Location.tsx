@@ -1,50 +1,69 @@
-import { useParams, Link } from 'react-router'
-import { useEffect, useState } from 'react'
-import { instance } from '@/common'
-import { Loader } from '@/common/components'
+import { Link, useParams } from 'react-router'
+import { Icon, Loader } from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
-import type { ErrorType, LocationResults } from '@/pages/api'
+import { useFetchById } from '@/common/hooks/useFetchById.ts'
+import { useLazyFetchMultiple } from '@/common/hooks/useLazyFetchMultiple.ts'
+import type { LocationResults, CharactersResults } from '@/pages/api'
+import { useEffect, useRef } from 'react'
 import s from './Location.module.css'
 
 export const Location = () => {
   const { id } = useParams()
-  const [location, setLocation] = useState<LocationResults | null>(null)
-  const [error, setError] = useState<ErrorType>(null)
+  const { data: location, error, isLoading } = useFetchById<LocationResults>('/location', id)
+  const {
+    data: residents,
+    error: residentsError,
+    isLoading: loadingResidents,
+    hasMore,
+    loadMore,
+  } = useLazyFetchMultiple<CharactersResults>(location?.residents || [], 10)
+
+  const observerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    const controller = new AbortController()
+    if (!hasMore || loadingResidents) return
 
-    instance
-      .get(`location/${id}`, { signal: controller.signal })
-      .then((res) => {
-        setLocation(res.data)
-        setError(null)
-      })
-      .catch(() => {
-        if (!controller.signal.aborted) {
-          setError('Failed to fetch location details.')
+    const listContainer = document.querySelector(`.${s.charactersList}`)
+
+    if (!listContainer) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore()
         }
-      })
+      },
+      {
+        threshold: 0.1,
+        root: listContainer,
+      },
+    )
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current)
+    }
 
     return () => {
-      controller.abort()
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current)
+      }
     }
-  }, [id])
+  }, [hasMore, loadingResidents, loadMore])
 
   const infoFields = location
     ? [
-      { title: 'Type', value: location.type || 'Unknown' },
-      { title: 'Dimension', value: location.dimension || 'Unknown' },
-      { title: 'Residents count', value: location.residents.length },
-      { title: 'Created', value: new Date(location.created).toLocaleDateString() },
-    ]
+        { title: 'Type', value: location.type || 'Unknown' },
+        { title: 'Dimension', value: location.dimension || 'Unknown' },
+        { title: 'Residents count', value: location.residents.length },
+        { title: 'Created', value: new Date(location.created).toLocaleDateString() },
+      ]
     : []
 
   return (
     <div className={s.pageContainer}>
-      {error && <div className={s.errorMessage}>{error}</div>}
+      {(error || residentsError) && <div className={s.errorMessage}>{error || residentsError}</div>}
 
-      {!location && !error && <Loader colorType={'locations'} text={'Loading location details...'} />}
+      {isLoading && <Loader colorType={'locations'} text={'Loading location details...'} />}
 
       {location && (
         <div className={s.container}>
@@ -59,19 +78,28 @@ export const Location = () => {
               ))}
             </div>
 
-            <div className={s.charactersList}>
-              {location.residents.map((url) => {
-                const id = url.split('/').pop()
-                return (
-                  <Link key={id} to={`${PATH.Characters}/${id}`} className={s.episodeLink}>
-                    Character {id}
-                  </Link>
-                )
-              })}
-            </div>
+            {residents.length > 0 ? (
+              <div className={s.charactersList}>
+                <>
+                  {residents.map((char) => (
+                    <Link key={char.id} to={`${PATH.Characters}/${char.id}`} className={s.characterLink}>
+                      <img src={char.image} alt={char.name} className={s.characterImage} />
+                      <span className={s.characterName}>{char.name}</span>
+                    </Link>
+                  ))}
+
+                  {loadingResidents && <Loader colorType="locations" text="Loading residents..." />}
+
+                  {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
+                </>
+              </div>
+            ) : (
+              <span className={s.noResidents}>There are no residents</span>
+            )}
           </div>
+
           <Link to={PATH.Locations} className={s.backButton}>
-            Back to Locations
+            <Icon name={'previous'} /> Back to Locations
           </Link>
         </div>
       )}
