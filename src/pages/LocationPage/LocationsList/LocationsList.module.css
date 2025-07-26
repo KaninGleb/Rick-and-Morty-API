@@ -96,7 +96,7 @@
     position: relative;
     content: '✦';
     top: -1px;
-    color: var(--color-card-star-content);
+    color: var(--color-card-secondary);
     margin-left: 8px;
     transition: .3s ease;
 }
