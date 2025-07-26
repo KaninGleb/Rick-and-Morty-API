@@ -1,4 +1,6 @@
+import { Link } from 'react-router'
 import type { EpisodeResults } from '@/pages/api'
+import { PATH } from '@/common/data/paths.ts'
 import s from './EpisodeCard.module.css'
 
 type Props = {
@@ -15,22 +17,24 @@ export const EpisodeCard = ({ episode }: Props) => {
   }
 
   return (
-    <div className={s.episodeCard}>
-      <div className={s.episodeHeader}>
-        <span>{episode.episode}</span>
-        <span>{episode.air_date || 'Unknown date'}</span>
-      </div>
-      <h2 className={s.episodeName}>{episode.name}</h2>
-      <div className={s.episodeMeta}>
-        <div className={s.metaItem}>
-          <span className={s.metaLabel}>Characters:</span>
-          <span className={s.metaValue}>{episode.characters.length}</span>
+    <Link className={s.characterLink} to={`${PATH.Episodes}/${episode.id}`}>
+      <div className={s.episodeCard}>
+        <div className={s.episodeHeader}>
+          <span>{episode.episode}</span>
+          <span>{episode.air_date || 'Unknown date'}</span>
         </div>
-        <div className={s.metaItem}>
-          <span className={s.metaLabel}>Created:</span>
-          <span className={s.metaValue}>{formatDate(episode.created)}</span>
+        <h2 className={s.episodeName}>{episode.name}</h2>
+        <div className={s.episodeMeta}>
+          <div className={s.metaItem}>
+            <span className={s.metaLabel}>Characters:</span>
+            <span className={s.metaValue}>{episode.characters.length}</span>
+          </div>
+          <div className={s.metaItem}>
+            <span className={s.metaLabel}>Created:</span>
+            <span className={s.metaValue}>{formatDate(episode.created)}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
