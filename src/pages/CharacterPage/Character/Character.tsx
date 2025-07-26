@@ -1,15 +1,55 @@
 import { Link, useParams } from 'react-router'
-import { Loader, Icon } from '@/common/components'
+import {Loader, Icon, ErrorMessage} from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
 import { useFetchById } from '@/common/hooks/useFetchById.ts'
 import { getStatusClassName } from './CharacterHelpers.ts'
-import type { CharactersResults } from '@/pages/api'
-import { getEpisodeId } from '@/common'
+import type { CharactersResults, EpisodeResults } from '@/pages/api'
+import { useLazyFetchMultiple } from '@/common/hooks'
+import { useEffect, useRef } from 'react'
 import s from './Character.module.css'
 
 export const Character = () => {
   const { id } = useParams()
   const { data: character, error, isLoading } = useFetchById<CharactersResults>('/character', id)
+  const {
+    data: episodes,
+    error: episodesError,
+    isLoading: loadingEpisodes,
+    hasMore,
+    loadMore,
+  } = useLazyFetchMultiple<EpisodeResults>(character?.episode || [], 20)
+
+  const observerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!hasMore || loadingEpisodes) return
+
+    const episodeList = document.querySelector(`.${s.episodeList}`)
+
+    if (!episodeList) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore()
+        }
+      },
+      {
+        threshold: 0.1,
+        root: episodeList,
+      },
+    )
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current)
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current)
+      }
+    }
+  }, [hasMore, loadingEpisodes, loadMore])
 
   const infoFields = character
     ? [
@@ -27,7 +67,7 @@ export const Character = () => {
 
   return (
     <div className={s.pageContainer}>
-      {error && <div className={s.errorMessage}>{error}</div>}
+      {(error || episodesError) && <ErrorMessage error={error || episodesError}/>}
 
       {isLoading && <Loader colorType={'characters'} text={'Loading character details...'} />}
 
@@ -57,14 +97,15 @@ export const Character = () => {
 
             {character.episode.length > 0 ? (
               <div className={s.episodeList}>
-                {character.episode.map((episodeUrl) => {
-                  const id = getEpisodeId(episodeUrl)
-                  return (
-                    <Link key={id} to={`${PATH.Episodes}/${id}`} className={s.episodeLink}>
-                      Episode {id}
-                    </Link>
-                  )
-                })}
+                {episodes.map((episode) => (
+                  <Link key={episode.id} to={`${PATH.Episodes}/${episode.id}`} className={s.episodeLink}>
+                    {episode.episode} — {episode.name}
+                  </Link>
+                ))}
+
+                {loadingEpisodes && <Loader colorType="characters" text="Loading episodes..." />}
+
+                {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
               </div>
             ) : (
               <span className={s.noEpisodes}>No episodes available</span>
