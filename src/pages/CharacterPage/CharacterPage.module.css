@@ -65,27 +65,28 @@
     padding: 16px 16px 0 16px;
 }
 
-
 .name {
     position: relative;
     display: inline-block;
     color: var(--characters-color-primary);
-    font-size: 1.25rem;
-    font-weight: 700;
-    padding-bottom: 4px;
+    background: linear-gradient(90deg, var(--characters-color-primary), var(--color-accent));
+    font-family: "Bungee", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-
 
 .name::after {
     position: absolute;
     content: '';
-    bottom: 3px;
+    bottom: 0;
     left: 0;
     width: 0;
     height: 3px;
     background-color: var(--characters-color-primary-hover);
     border-radius: 2px;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.4s ease-in-out;
 }
 
 .card:hover .name::after {
