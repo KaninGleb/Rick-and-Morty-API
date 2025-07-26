@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router'
 import { Header } from '@/common'
-import { HomePage, CharacterPage, Character, LocationPage, Location, EpisodePage } from '@/pages'
+import { HomePage, CharacterPage, Character, LocationPage, Location, EpisodePage, Episode } from '@/pages'
 import { PATH } from '@/common/data/paths.ts'
 
 export const App = () => {
@@ -14,6 +14,7 @@ export const App = () => {
         <Route path={PATH.Locations} element={<LocationPage />} />
         <Route path={PATH.Location} element={<Location />} />
         <Route path={PATH.Episodes} element={<EpisodePage />} />
+        <Route path={PATH.Episode} element={<Episode />} />
       </Routes>
     </div>
   )
