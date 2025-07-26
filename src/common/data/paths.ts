@@ -5,4 +5,5 @@ export const PATH = {
   Locations: '/locations',
   Location: '/locations/:id',
   Episodes: '/episodes',
+  Episode: '/episodes/:id',
 } as const
