@@ -18,7 +18,10 @@ export const LocationsList = ({ locations }: LocationsListPropsType) => (
               <span className={s.label}>🧭 Type:</span> {location.type || 'Unknown'}
             </p>
             <p>
-              <span className={s.label}>🌌 Dimension:</span> {location.dimension || 'Unknown'}
+              <span className={s.label}>🌌 Dimension:</span>{' '}
+              {location.dimension
+                ? location.dimension.charAt(0).toUpperCase() + location.dimension.slice(1)
+                : 'Unknown'}
             </p>
             <p>
               <span className={s.label}>👥 Residents:</span>{' '}
