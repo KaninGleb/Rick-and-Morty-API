@@ -53,7 +53,12 @@ export const Location = () => {
   const infoFields = location
     ? [
         { title: 'Type', value: location.type || 'Unknown' },
-        { title: 'Dimension', value: location.dimension || 'Unknown' },
+        {
+          title: 'Dimension',
+          value: location.dimension
+            ? location.dimension.charAt(0).toUpperCase() + location.dimension.slice(1)
+            : 'Unknown',
+        },
         { title: 'Residents count', value: location.residents.length },
         { title: 'Created', value: new Date(location.created).toLocaleDateString() },
       ]
