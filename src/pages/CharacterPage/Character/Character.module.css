@@ -24,12 +24,12 @@
 
 .pageTitle::after {
     position: absolute;
+    content: '';
     bottom: -10px;
     left: 50%;
     width: 60px;
     height: 4px;
     background: var(--characters-color-primary-hover);
-    content: '';
     transform: translateX(-50%);
     border-radius: 2px;
 }
@@ -70,7 +70,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    color: var(--text-primary);
     font-weight: 600;
     font-size: 1.1rem;
 }
@@ -95,7 +94,7 @@
 }
 
 .statusText {
-    color: var(--text-primary);
+
 }
 
 .info {
@@ -111,7 +110,6 @@
 }
 
 .value {
-    color: var(--text-primary);
     font-size: 1.05rem;
 }
 
@@ -159,9 +157,9 @@
     text-align: center;
     margin: 24px auto;
     padding: 16px;
-    color: var(--error-text);
+    color: #DC2626FF;
     box-shadow: 0 4px 12px var(--shadow-color);
-    background-color: var(--error-bg);
+    background-color: #FEF2F2FF;
     border-radius: 8px;
     max-width: 600px;
     font-weight: 500;

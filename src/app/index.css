@@ -16,7 +16,7 @@
     --green-500: #22c55e;
 
     --episodes-header-color-primary: #42b883;
-    --color-primary-dark: #2c3e50;
+
     --color-primary-light: #95a5a6;
     --color-accent: #1f2d3d;
     --color-danger: #ff3860;
@@ -26,11 +26,11 @@
     --color-muted: #666666;
     --color-background: #ffffff;
     --color-background-alt: #f4f4f4;
-    --color-border: #ccc;
-    --color-disabled: #bdc3c7;
+
+    --pagination-color-disabled: #bdc3c7;
     --color-placeholder: #aaa;
     --color-overlay: rgba(0, 0, 0, 0.05);
-    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-shadow: rgba(0, 0, 0, 0.1);
     --color-shadow-hover: rgba(0, 0, 0, 0.1);
 
     --characters-color-primary: #a178df;
@@ -43,8 +43,6 @@
     /*--characters-color-primary-active: #9b2f9b;*/
     /*--characters-color-loader-border: rgba(209, 79, 209, 0.3);*/
 
-    --color-bg-light: #ffffff;
-    --color-bg-subtle: #f9fafb;
     --locations-color-primary: #4fd1c5;
     --locations-color-primary-hover: #38b2a5;
     --locations-color-primary-active: #2f9087;
@@ -56,22 +54,15 @@
 
     --color-card-gradient: linear-gradient(145deg, #f9f9fb, #f1f4f8);
     --color-hover-glow: rgba(79, 209, 197, 0.2);
-    --color-icon: #38b2ac;
 
     --episodes-primary-color: #4bcd93;
     --episodes-primary-color-hover: #3bb67f;
     --episodes-primary-color-active: #309b6d;
     --episodes-color-loader-border: rgba(39, 238, 149, 0.2);
-    --secondary-color: #4682b4;
-    --card-background: #ffffff;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --border-color: #e5e7eb;
+
+    --color-card-star-content: #ff6b6b;
+    --color-residents-count: #4682b4;
     --shadow-color: rgba(0, 0, 0, 0.08);
-    --highlight-color: #fef3c7;
-    --error-bg: #fef2f2;
-    --error-text: #dc2626;
-    --accent-gradient: linear-gradient(45deg, var(--episodes-primary-color), var(--secondary-color));
 }
 
 * {
