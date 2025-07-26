@@ -24,16 +24,17 @@
     overflow: hidden;
     border-left: 6px solid var(--locations-color-primary);
     border-bottom: 3px solid var(--locations-color-primary);
+    font-weight: 500;
 }
 
 .locationCard::before {
     position: absolute;
+    content: '';
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center, var(--color-hover-glow), transparent 60%);
-    content: '';
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 0;
@@ -60,11 +61,11 @@
 
 .locationName::after {
     position: absolute;
+    content: '';
     bottom: -4px;
     left: 0;
     width: 50px;
     height: 3px;
-    content: '';
     border-radius: 2px;
     background-color: var(--locations-color-primary);
     transition: width 0.3s ease;
@@ -86,32 +87,26 @@
 }
 
 .label {
-    color: var(--color-label);
+    color: var(--locations-color-primary);
     font-weight: 600;
     margin-right: 0.25rem;
 }
 
 .label::after {
     position: relative;
+    content: '✦';
     top: -1px;
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    content: '';
+    color: var(--color-card-star-content);
     margin-left: 8px;
-    border-radius: 50%;
-    vertical-align: middle;
-    background-color: var(--secondary-color);
     transition: .3s ease;
 }
-
 
 .locationCard:hover .label::after {
     transform: scale(1.2);
 }
 
 .residentsCount {
-    color: var(--secondary-color);
+    color: var(--color-residents-count);
     font-weight: 600;
     cursor: pointer;
     transition: .3s ease;
