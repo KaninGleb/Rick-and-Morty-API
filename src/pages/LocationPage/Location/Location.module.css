@@ -32,12 +32,12 @@
 
 .pageTitle::after {
     position: absolute;
+    content: '';
     bottom: 0;
     left: 50%;
     width: 80px;
     height: 5px;
     background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-    content: '';
     transform: translateX(-50%);
     border-radius: 3px;
 }
@@ -71,9 +71,9 @@
 
 .info::before {
     position: absolute;
+    content: '✦';
     left: 0;
     color: #ff6b6b;
-    content: '✦';
     font-size: 1.2rem;
 }
 

@@ -6,6 +6,7 @@
     "order/properties-order": [
       [
         "position",
+        "content",
         "top",
         "right",
         "bottom",
