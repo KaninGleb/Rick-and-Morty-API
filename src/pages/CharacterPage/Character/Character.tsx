@@ -1,8 +1,8 @@
 import { Link, useParams } from 'react-router'
-import {Loader, Icon, ErrorMessage} from '@/common/components'
+import { Loader, Icon, ErrorMessage } from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
 import { useFetchById } from '@/common/hooks/useFetchById.ts'
-import { getStatusClassName } from './CharacterHelpers.ts'
+import { getStatusClassName, groupEpisodesBySeason } from './CharacterHelpers.ts'
 import type { CharactersResults, EpisodeResults } from '@/pages/api'
 import { useLazyFetchMultiple } from '@/common/hooks'
 import { useEffect, useRef } from 'react'
@@ -18,6 +18,8 @@ export const Character = () => {
     hasMore,
     loadMore,
   } = useLazyFetchMultiple<EpisodeResults>(character?.episode || [], 20)
+
+  const groupedEpisodes = groupEpisodesBySeason(episodes)
 
   const observerRef = useRef<HTMLDivElement | null>(null)
 
@@ -67,7 +69,7 @@ export const Character = () => {
 
   return (
     <div className={s.pageContainer}>
-      {(error || episodesError) && <ErrorMessage error={error || episodesError}/>}
+      {(error || episodesError) && <ErrorMessage error={error || episodesError} />}
 
       {isLoading && <Loader colorType={'characters'} text={'Loading character details...'} />}
 
@@ -97,10 +99,18 @@ export const Character = () => {
 
             {character.episode.length > 0 ? (
               <div className={s.episodeList}>
-                {episodes.map((episode) => (
-                  <Link key={episode.id} to={`${PATH.Episodes}/${episode.id}`} className={s.episodeLink}>
-                    {episode.episode} — {episode.name}
-                  </Link>
+                {Object.entries(groupedEpisodes).map(([season, episodes]) => (
+                  <div key={season} className={s.seasonGroup}>
+                    <h2 className={s.seasonTitle}>{season}</h2>
+                    <div className={s.episodeGrid}>
+                      {episodes.map((episode) => (
+                        <Link key={episode.id} to={`${PATH.Episodes}/${episode.id}`} className={s.episodeLink}>
+                          <span className={s.episodeCode}>{episode.episode}</span>-
+                          <span className={s.episodeName}>{episode.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 ))}
 
                 {loadingEpisodes && <Loader colorType="characters" text="Loading episodes..." />}
