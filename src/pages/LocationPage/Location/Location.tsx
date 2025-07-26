@@ -1,10 +1,8 @@
 import { Link, useParams } from 'react-router'
-import {ErrorMessage, Icon, Loader} from '@/common/components'
-import { PATH } from '@/common/data/paths.ts'
-import { useFetchById } from '@/common/hooks/useFetchById.ts'
-import { useLazyFetchMultiple } from '@/common/hooks/useLazyFetchMultiple.ts'
+import { ErrorMessage, Icon, Loader } from '@/common/components'
+import { useFetchById, useLazyFetchMultiple, useInfiniteScroll } from '@/common/hooks'
 import type { LocationResults, CharactersResults } from '@/pages/api'
-import { useEffect, useRef } from 'react'
+import { PATH } from '@/common/data/paths.ts'
 import s from './Location.module.css'
 
 export const Location = () => {
@@ -18,37 +16,12 @@ export const Location = () => {
     loadMore,
   } = useLazyFetchMultiple<CharactersResults>(location?.residents || [], 10)
 
-  const observerRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    if (!hasMore || loadingResidents) return
-
-    const listContainer = document.querySelector(`.${s.charactersList}`)
-
-    if (!listContainer) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          loadMore()
-        }
-      },
-      {
-        threshold: 0.1,
-        root: listContainer,
-      },
-    )
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current)
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current)
-      }
-    }
-  }, [hasMore, loadingResidents, loadMore])
+  const observerRef = useInfiniteScroll({
+    hasMore,
+    loadMore,
+    isLoading: loadingResidents,
+    containerSelector: `.${s.charactersList}`,
+  })
 
   const infoFields = location
     ? [
