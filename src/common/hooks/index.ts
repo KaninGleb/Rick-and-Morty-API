@@ -1,3 +1,4 @@
 export { usePaginatedData } from './usePaginatedData'
 export { useFetchById } from './useFetchById'
-export { useLazyFetchMultiple } from './useLazyFetchMultiple.ts'
+export { useLazyFetchMultiple } from './useLazyFetchMultiple'
+export { useInfiniteScroll } from './useInfiniteScroll'
