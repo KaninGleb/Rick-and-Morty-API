@@ -113,6 +113,7 @@
 .statusText {
     color: var(--color-text-muted);
     font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
 }
 
 .info {

@@ -1,11 +1,9 @@
 import { Link, useParams } from 'react-router'
 import { Loader, Icon, ErrorMessage } from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
-import { useFetchById } from '@/common/hooks/useFetchById.ts'
 import { getStatusClassName, groupEpisodesBySeason } from './CharacterHelpers.ts'
 import type { CharactersResults, EpisodeResults } from '@/pages/api'
-import { useLazyFetchMultiple } from '@/common/hooks'
-import { useEffect, useRef } from 'react'
+import { useFetchById, useInfiniteScroll, useLazyFetchMultiple } from '@/common/hooks'
 import s from './Character.module.css'
 
 export const Character = () => {
@@ -19,39 +17,14 @@ export const Character = () => {
     loadMore,
   } = useLazyFetchMultiple<EpisodeResults>(character?.episode || [], 20)
 
+  const observerRef = useInfiniteScroll({
+    hasMore,
+    loadMore,
+    isLoading: loadingEpisodes,
+    containerSelector: `.${s.episodeList}`,
+  })
+
   const groupedEpisodes = groupEpisodesBySeason(episodes)
-
-  const observerRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    if (!hasMore || loadingEpisodes) return
-
-    const episodeList = document.querySelector(`.${s.episodeList}`)
-
-    if (!episodeList) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          loadMore()
-        }
-      },
-      {
-        threshold: 0.1,
-        root: episodeList,
-      },
-    )
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current)
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current)
-      }
-    }
-  }, [hasMore, loadingEpisodes, loadMore])
 
   const infoFields = character
     ? [
@@ -113,7 +86,7 @@ export const Character = () => {
                   </div>
                 ))}
 
-                {loadingEpisodes && <Loader colorType="characters" text="Loading episodes..." />}
+                {loadingEpisodes && <Loader colorType={'characters'} text={'Loading episodes...'} />}
 
                 {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
               </div>
