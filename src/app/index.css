@@ -61,6 +61,7 @@
     --episodes-color-loader-border: rgba(39, 238, 149, 0.2);
 
     --color-card-secondary: #ff6b6b;
+    --color-card-secondary-hover: #ff8787;
     --color-residents-count: #4682b4;
     --shadow-color: rgba(0, 0, 0, 0.08);
 }
