@@ -28,12 +28,12 @@
 
 .card::before {
     position: absolute;
+    content: '';
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center, var(--characters-color-loader-border), transparent 60%);
-    content: '';
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 0;
@@ -52,32 +52,37 @@
 .avatar {
     display: block;
     width: 100%;
-    height: auto;
+    height: 220px;
+    min-width: 220px;
+    object-fit: cover;
+    border-radius: 8px;
 }
+
 
 .info {
     display: flex;
+    justify-content: center;
     padding: 16px 16px 0 16px;
 }
+
 
 .name {
     position: relative;
     display: inline-block;
-    margin: 0 auto;
     color: var(--characters-color-primary);
     font-size: 1.25rem;
     font-weight: 700;
     padding-bottom: 4px;
-    overflow: hidden;
 }
+
 
 .name::after {
     position: absolute;
+    content: '';
     bottom: 3px;
     left: 0;
     width: 0;
     height: 3px;
-    content: '';
     background-color: var(--characters-color-primary-hover);
     border-radius: 2px;
     transition: width 0.3s ease-in-out;
