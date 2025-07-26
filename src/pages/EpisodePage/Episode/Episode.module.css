@@ -1,0 +1,205 @@
+.pageContainer {
+    margin: 0 auto;
+    padding: 40px 20px;
+    max-width: 1200px;
+    min-height: calc(100vh - 80px);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 32px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.pageTitle {
+    position: relative;
+    text-align: center;
+    color: transparent;
+    background: linear-gradient(90deg, var(--color-card-secondary), var(--episodes-primary-color));
+    font-size: 3.8rem;
+    font-weight: 900;
+    font-family: 'Inter', sans-serif;
+    background-clip: text;
+    padding-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.pageTitle::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 50%;
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--color-card-secondary), var(--episodes-primary-color));
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    padding: 24px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 20px;
+    background: #f9fafb;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    padding-left: 32px;
+}
+
+.info::before {
+    position: absolute;
+    content: '✦';
+    left: 0;
+    color: var(--color-card-secondary);
+    font-size: 1.2rem;
+}
+
+.label {
+    color: #2d3748;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.value {
+    color: #4a5568;
+    font-size: 1.15rem;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+
+.charactersList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 12px;
+}
+
+.charactersList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.charactersList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.charactersList::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-card-secondary), var(--episodes-primary-color));
+    border-radius: 10px;
+}
+
+.charactersList::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-card-secondary-hover), var(--episodes-primary-color-hover));
+}
+
+.characterLink {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: #ffffff;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.characterLink:hover {
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--color-card-secondary), var(--episodes-primary-color));
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+.characterLink:hover .characterName {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.characterImage {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.characterName {
+    text-align: center;
+    color: #2d3748;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.3;
+    max-width: 100%;
+    white-space: normal;
+}
+
+.noResidents {
+    text-align: center;
+    color: #2d3748;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    color: #ffffff;
+    background: linear-gradient(90deg, var(--color-card-secondary), var(--episodes-primary-color));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.backButton:hover {
+    background: linear-gradient(90deg, var(--color-card-secondary-hover), var(--episodes-primary-color-hover));
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.infiniteScrollAnchor {
+    width: 100%;
+    height: 1px;
+}
