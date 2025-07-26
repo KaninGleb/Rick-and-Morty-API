@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router'
-import { Icon, Loader } from '@/common/components'
+import {ErrorMessage, Icon, Loader} from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
 import { useFetchById } from '@/common/hooks/useFetchById.ts'
 import { useLazyFetchMultiple } from '@/common/hooks/useLazyFetchMultiple.ts'
@@ -66,7 +66,7 @@ export const Location = () => {
 
   return (
     <div className={s.pageContainer}>
-      {(error || residentsError) && <div className={s.errorMessage}>{error || residentsError}</div>}
+      {(error || residentsError) && <ErrorMessage error={error || residentsError} />}
 
       {isLoading && <Loader colorType={'locations'} text={'Loading location details...'} />}
 
