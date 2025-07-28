@@ -1,28 +1,21 @@
-import { Link, useParams } from 'react-router'
-import { Loader, Icon, ErrorMessage } from '@/common/components'
-import { PATH } from '@/common/data/paths.ts'
+import { Link } from 'react-router'
+import { ErrorMessage, Icon, Loader } from '@/common/components'
 import { getStatusClassName, groupEpisodesBySeason } from './CharacterHelpers.ts'
+import { useDetailPageData } from '@/common/hooks'
 import type { CharactersResults, EpisodeResults } from '@/pages/api'
-import { useFetchById, useInfiniteScroll, useLazyFetchMultiple } from '@/common/hooks'
+import { PATH } from '@/common/data/paths.ts'
 import s from './Character.module.css'
 
 export const Character = () => {
-  const { id } = useParams()
-  const { data: character, error, isLoading } = useFetchById<CharactersResults>('/character', id)
   const {
-    data: episodes,
-    error: episodesError,
-    isLoading: loadingEpisodes,
+    data: character,
+    relatedData: episodes,
+    error,
+    isLoading,
+    isLoadingRelated: isLoadingEpisodes,
     hasMore,
-    loadMore,
-  } = useLazyFetchMultiple<EpisodeResults>(character?.episode || [], 20)
-
-  const observerRef = useInfiniteScroll({
-    hasMore,
-    loadMore,
-    isLoading: loadingEpisodes,
-    containerSelector: `.${s.episodeList}`,
-  })
+    observerRef,
+  } = useDetailPageData<CharactersResults, EpisodeResults>('character', `.${s.episodeList}`)
 
   const groupedEpisodes = groupEpisodesBySeason(episodes)
 
@@ -42,7 +35,7 @@ export const Character = () => {
 
   return (
     <div className={s.pageContainer}>
-      {(error || episodesError) && <ErrorMessage error={error || episodesError} />}
+      {error && <ErrorMessage error={error} />}
 
       {isLoading && <Loader colorType={'characters'} text={'Loading character details...'} />}
 
@@ -86,7 +79,7 @@ export const Character = () => {
                   </div>
                 ))}
 
-                {loadingEpisodes && <Loader colorType={'characters'} text={'Loading episodes...'} />}
+                {isLoadingEpisodes && <Loader colorType={'characters'} text={'Loading episodes...'} />}
 
                 {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
               </div>
