@@ -21,15 +21,10 @@ export const Character = () => {
 
   const infoFields = character
     ? [
-        { title: 'Last known location', value: character.location.name ?? 'Unknown' },
-        {
-          title: 'Origin',
-          value: character.origin.name
-            ? character.origin.name.charAt(0).toUpperCase() + character.origin.name.slice(1)
-            : 'Unknown',
-        },
-        { title: 'Gender', value: character.gender ?? 'Unknown' },
-        { title: 'Episodes', value: character.episode.length ?? 0 },
+        { title: 'Last known location', value: character.location.name || 'Unknown' },
+        { title: 'Origin', value: character.origin.name || 'Unknown' },
+        { title: 'Gender', value: character.gender || 'Unknown' },
+        { title: 'Episodes', value: character.episode.length || 0 },
       ]
     : []
 
