@@ -11,4 +11,18 @@ export const api = {
   getEpisodes(url: string = `/episode`) {
     return instance.get<BaseResponse<EpisodeResults>>(url)
   },
+  async getIndividual<T>(urls: string[], signal?: AbortSignal): Promise<T[]> {
+    const results: (T | null)[] = []
+
+    for (const url of urls) {
+      try {
+        const res = await instance.get<T>(url, { signal })
+        results.push(res.data)
+      } catch {
+        results.push(null)
+      }
+    }
+
+    return results.filter(Boolean) as T[]
+  },
 }

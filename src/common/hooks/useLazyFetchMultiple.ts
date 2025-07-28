@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { instance } from '@/common'
-import type { ErrorType } from '@/pages/api'
+import { api, type ErrorType } from '@/pages/api'
 
 export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
   const [data, setData] = useState<T[]>([])
@@ -46,16 +46,7 @@ export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
           })
           results = Array.isArray(response.data) ? response.data : [response.data]
         } else {
-          results = (
-            await Promise.all(
-              batchUrls.map((url) =>
-                instance
-                  .get<T>(url, { signal: controller.signal })
-                  .then((res) => res.data)
-                  .catch(() => null),
-              ),
-            )
-          ).filter(Boolean) as T[]
+          results = await api.getIndividual<T>(batchUrls, controller.signal)
         }
 
         ids.forEach((id) => fetchedIds.current.add(id))
