@@ -1,27 +1,20 @@
-import { Link, useParams } from 'react-router'
+import { Link } from 'react-router'
 import { ErrorMessage, Icon, Loader } from '@/common/components'
-import { useFetchById, useLazyFetchMultiple, useInfiniteScroll } from '@/common/hooks'
+import { useDetailPageData } from '@/common/hooks'
 import type { LocationResults, CharactersResults } from '@/pages/api'
 import { PATH } from '@/common/data/paths.ts'
 import s from './Location.module.css'
 
 export const Location = () => {
-  const { id } = useParams()
-  const { data: location, error, isLoading } = useFetchById<LocationResults>('/location', id)
   const {
-    data: residents,
-    error: residentsError,
-    isLoading: loadingResidents,
+    data: location,
+    relatedData: characters,
+    error,
+    isLoading,
+    isLoadingRelated: isLoadingCharacters,
     hasMore,
-    loadMore,
-  } = useLazyFetchMultiple<CharactersResults>(location?.residents || [], 10)
-
-  const observerRef = useInfiniteScroll({
-    hasMore,
-    loadMore,
-    isLoading: loadingResidents,
-    containerSelector: `.${s.charactersList}`,
-  })
+    observerRef,
+  } = useDetailPageData<LocationResults, CharactersResults>('location', `.${s.charactersList}`)
 
   const infoFields = location
     ? [
@@ -39,7 +32,7 @@ export const Location = () => {
 
   return (
     <div className={s.pageContainer}>
-      {(error || residentsError) && <ErrorMessage error={error || residentsError} />}
+      {error && <ErrorMessage error={error} />}
 
       {isLoading && <Loader colorType={'locations'} text={'Loading location details...'} />}
 
@@ -56,17 +49,17 @@ export const Location = () => {
               ))}
             </div>
 
-            {residents.length > 0 ? (
+            {characters.length > 0 ? (
               <div className={s.charactersList}>
                 <>
-                  {residents.map((char) => (
+                  {characters.map((char) => (
                     <Link key={char.id} to={`${PATH.Characters}/${char.id}`} className={s.characterLink}>
                       <img src={char.image} alt={char.name} className={s.characterImage} />
                       <span className={s.characterName}>{char.name}</span>
                     </Link>
                   ))}
 
-                  {loadingResidents && <Loader colorType="locations" text="Loading residents..." />}
+                  {isLoadingCharacters && <Loader colorType="locations" text="Loading residents..." />}
 
                   {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
                 </>
