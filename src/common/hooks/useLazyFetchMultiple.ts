@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { api, type ErrorType } from '@/pages/api'
+import { parseUrls } from '@/common'
 
 export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
   const [data, setData] = useState<T[]>([])
@@ -8,18 +9,6 @@ export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
   const [hasMore, setHasMore] = useState(false)
   const currentIndex = useRef(0)
   const fetchedIds = useRef<Set<string>>(new Set())
-
-  const parseUrls = (urls: string[]): { ids: string[]; endpoint: string | null } => {
-    if (!urls.length) return { ids: [], endpoint: null }
-
-    const endpoint = urls[0].split('/').slice(0, -1).join('/')
-    const ids = urls
-      .map((url) => url.split('/').pop()!)
-      .filter(Boolean)
-      .filter((id) => !fetchedIds.current.has(id))
-
-    return { ids, endpoint }
-  }
 
   const fetchBatch = useCallback(
     async (controller: AbortController) => {
@@ -32,8 +21,9 @@ export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
       setIsLoading(true)
 
       try {
-        const { ids, endpoint } = parseUrls(batchUrls)
-        if (!ids.length) {
+        const { ids, endpoint } = parseUrls(batchUrls, fetchedIds.current)
+
+        if (!ids.length || !endpoint) {
           setError('No valid or new IDs found')
           return
         }
