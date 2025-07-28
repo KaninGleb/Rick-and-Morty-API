@@ -1,10 +1,8 @@
 import { useParams } from 'react-router'
-import { type EntityWithRelated, getRelatedField } from '@/common'
+import { type entityNameType, type EntityWithRelated, getRelatedField } from '@/common'
 import { useFetchById } from './useFetchById.ts'
 import { useLazyFetchMultiple } from './useLazyFetchMultiple.ts'
 import { useInfiniteScroll } from './useInfiniteScroll.ts'
-
-type entityNameType = 'episode' | 'character' | 'location'
 
 export const useDetailPageData = <T extends EntityWithRelated, R>(
   entityName: entityNameType,
@@ -20,7 +18,7 @@ export const useDetailPageData = <T extends EntityWithRelated, R>(
     isLoading: isLoadingRelated,
     hasMore,
     loadMore,
-  } = useLazyFetchMultiple<R>(getRelatedField(data) || [], 10)
+  } = useLazyFetchMultiple<R>(getRelatedField(data, entityName) || [], 18)
 
   const observerRef = useInfiniteScroll({
     hasMore,

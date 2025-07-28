@@ -1,15 +1,27 @@
+export type entityNameType = 'episode' | 'character' | 'location'
+
 export type EntityWithRelated = {
   characters?: string[]
   residents?: string[]
-  episode?: string[]
+  episode?: string[] | string
 }
 
-export const getRelatedField = (data: EntityWithRelated | undefined | null): string[] => {
-  if (!data) return []
+export const getRelatedField = (data: EntityWithRelated | null | undefined, entityType: entityNameType): string[] => {
+  if (!data) {
+    return []
+  }
 
-  if (data.characters) return data.characters
-  if (data.residents) return data.residents
-  if (data.episode) return data.episode
+  switch (entityType) {
+    case 'episode':
+      return data.characters || []
 
-  return []
+    case 'location':
+      return data.residents || []
+
+    case 'character':
+      return Array.isArray(data.episode) ? data.episode : []
+
+    default:
+      return []
+  }
 }
