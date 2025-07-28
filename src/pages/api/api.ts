@@ -25,4 +25,8 @@ export const api = {
 
     return results.filter(Boolean) as T[]
   },
+  async getMultiple<T>(endpoint: string, ids: string[], signal?: AbortSignal): Promise<T[]> {
+    const res = await instance.get<T[] | T>(`${endpoint}/${ids.join(',')}`, { signal })
+    return Array.isArray(res.data) ? res.data : [res.data]
+  },
 }

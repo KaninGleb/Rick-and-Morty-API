@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { instance } from '@/common'
 import { api, type ErrorType } from '@/pages/api'
 
 export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
@@ -41,10 +40,7 @@ export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
 
         let results: T[]
         if (endpoint?.includes('/character')) {
-          const response = await instance.get<T[]>(`/character/${ids.join(',')}`, {
-            signal: controller.signal,
-          })
-          results = Array.isArray(response.data) ? response.data : [response.data]
+          results = await api.getMultiple<T>(endpoint, ids, controller.signal)
         } else {
           results = await api.getIndividual<T>(batchUrls, controller.signal)
         }
