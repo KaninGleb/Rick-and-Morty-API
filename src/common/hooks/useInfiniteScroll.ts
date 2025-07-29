@@ -5,11 +5,19 @@ type useInfiniteScrollPropsType = {
   loadMore: () => void
   isLoading: boolean
   containerSelector?: string | null
+  debounceMs?: number
 }
 
-export const useInfiniteScroll = ({ hasMore, loadMore, isLoading, containerSelector }: useInfiniteScrollPropsType) => {
+export const useInfiniteScroll = ({
+  hasMore,
+  loadMore,
+  isLoading,
+  containerSelector,
+  debounceMs = 200,
+}: useInfiniteScrollPropsType) => {
   const observerRef = useRef<HTMLDivElement | null>(null)
   const observerInstance = useRef<IntersectionObserver | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (!hasMore || isLoading) return
@@ -25,7 +33,12 @@ export const useInfiniteScroll = ({ hasMore, loadMore, isLoading, containerSelec
     observerInstance.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          loadMore()
+          if (timeoutRef.current) return
+
+          timeoutRef.current = setTimeout(() => {
+            loadMore()
+            timeoutRef.current = null
+          }, debounceMs)
         }
       },
       {
@@ -41,7 +54,7 @@ export const useInfiniteScroll = ({ hasMore, loadMore, isLoading, containerSelec
       observerInstance.current?.disconnect()
       observerInstance.current = null
     }
-  }, [hasMore, isLoading, loadMore, containerSelector])
+  }, [hasMore, isLoading, loadMore, containerSelector, debounceMs])
 
   return observerRef
 }
