@@ -7,6 +7,8 @@ import { PATH } from '@/common/data/paths.ts'
 import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => {
+  const [searchQuery, setSearchQuery] = useState<string>('')
+
   const {
     data: characters,
     info,
@@ -17,12 +19,10 @@ export const CharacterPage = () => {
   } = usePaginatedData<CharactersResults>(api.getCharacters, '/character')
 
   const observerRef = useInfiniteScroll({
-    hasMore: !!info.next,
+    hasMore: !!info.next && searchQuery.trim() === '',
     loadMore: nextPageHandler,
     isLoading,
   })
-
-  const [searchQuery, setSearchQuery] = useState<string>('')
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
