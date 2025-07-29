@@ -29,7 +29,7 @@ export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
         }
 
         let results: T[]
-        if (endpoint?.includes('/character')) {
+        if (endpoint?.includes('/character') || endpoint?.includes('/episode') || endpoint?.includes('/location')) {
           results = await api.getMultiple<T>(endpoint, ids, controller.signal)
         } else {
           results = await api.getIndividual<T>(batchUrls, controller.signal)
