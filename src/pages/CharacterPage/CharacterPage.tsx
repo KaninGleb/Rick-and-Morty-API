@@ -1,8 +1,8 @@
-import { type ChangeEvent, useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router'
-import { usePaginatedData } from '@/common/hooks'
+import { usePaginatedData, useInfiniteScroll } from '@/common/hooks'
 import { api, type CharactersResults } from '@/pages/api'
-import { PageTitle, ErrorMessage, Loader, Pagination } from '@/common/components'
+import { ErrorMessage, Loader, PageTitle } from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
 import s from './CharacterPage.module.css'
 
@@ -10,13 +10,17 @@ export const CharacterPage = () => {
   const {
     data: characters,
     info,
-    currentPage,
     error,
     isLoading,
-    nextPageHandler,
-    previousPageHandler,
     fetchData,
+    nextPageHandler,
   } = usePaginatedData<CharactersResults>(api.getCharacters, '/character')
+
+  const observerRef = useInfiniteScroll({
+    hasMore: !!info.next,
+    loadMore: nextPageHandler,
+    isLoading,
+  })
 
   const [searchQuery, setSearchQuery] = useState<string>('')
 
@@ -38,33 +42,24 @@ export const CharacterPage = () => {
 
       {!isLoading && error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader colorType={'characters'} text={'Scanning the multiverse for characters...'} />}
-
-      {!error && characters.length > 0 && (
-        <>
-          <div className={s.characters}>
-            {characters.map((character) => (
-              <Link className={s.characterLink} key={character.id} to={`${PATH.Characters}/${character.id}`}>
-                <div className={s.card}>
-                  <img className={s.avatar} src={character.image} alt={`${character.name} avatar`} />
-
-                  <div className={s.info}>
-                    <h3 className={s.name}>{character.name}</h3>
-                  </div>
+      {characters.length > 0 && (
+        <div className={s.characters}>
+          {characters.map((character) => (
+            <Link className={s.characterLink} key={character.id} to={`${PATH.Characters}/${character.id}`}>
+              <div className={s.card}>
+                <img className={s.avatar} src={character.image} alt={`${character.name} avatar`} />
+                <div className={s.info}>
+                  <h3 className={s.name}>{character.name}</h3>
                 </div>
-              </Link>
-            ))}
-          </div>
-
-          <Pagination
-            colorType={'characters'}
-            currentPage={currentPage}
-            pageInfo={info}
-            onPrev={previousPageHandler}
-            onNext={nextPageHandler}
-          />
-        </>
+              </div>
+            </Link>
+          ))}
+        </div>
       )}
+
+      {isLoading && <Loader colorType={'characters'} text={'Loading more characters...'} />}
+
+      {!isLoading && !!info.next && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
     </div>
   )
 }
