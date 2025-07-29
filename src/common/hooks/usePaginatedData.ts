@@ -25,8 +25,8 @@ export const usePaginatedData = <T>(
     prev: null,
   })
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [error, setError] = useState<ErrorType | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<ErrorType | null>(null)
 
   const getPageFromUrl = (url: string | null): number => {
     if (!url) return 1
@@ -47,7 +47,15 @@ export const usePaginatedData = <T>(
       setIsLoading(true)
       try {
         const res = await fetchFunction(url)
-        setData(res.data.results || [])
+
+        const isFirstPage = !url.includes('page=') || url.includes('page=1')
+
+        if (isFirstPage) {
+          setData(res.data.results)
+        } else {
+          setData(prev => [...prev, ...res.data.results])
+        }
+
         setInfo(res.data.info)
         setError(null)
         setCurrentPage(getPageFromUrl(url))
