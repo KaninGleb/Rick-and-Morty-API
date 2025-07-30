@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { api } from '@/pages/api'
-import type { CharacterZustandStore } from '@/store/useCharacterStore.types.ts'
+import type { CharacterZustandStore } from '@/stores/useCharacterStore/useCharacterStore.types.ts'
 import type { AxiosError } from 'axios'
 
 export const useCharacterStore = create<CharacterZustandStore>((set, get) => ({
