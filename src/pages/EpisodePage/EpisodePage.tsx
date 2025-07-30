@@ -1,29 +1,69 @@
-import { useState } from 'react'
-import type { ChangeEvent } from 'react'
-import { api, type EpisodeResults } from '@/pages/api'
-import { usePaginatedData } from '@/common/hooks'
-import { PageTitle, ErrorMessage, Loader, Icon, Pagination } from '@/common/components'
+import { useEpisodeStore } from '@/stores'
+import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
 import { EpisodeList, EpisodesInfoBar } from '@/pages'
 import s from './EpisodePage.module.css'
+import { useInfiniteScroll } from '@/common/hooks'
+import { type ChangeEvent, useEffect } from 'react'
 
 export const EpisodePage = () => {
   const {
-    data: episodes,
+    episodes,
     info,
-    currentPage,
-    error,
     isLoading,
-    nextPageHandler,
-    previousPageHandler,
-    fetchData,
-  } = usePaginatedData<EpisodeResults>(api.getEpisodes, '/episode')
+    error,
+    searchQuery,
+    scrollPosition,
+    fetchEpisodes,
+    fetchNextPage,
+    setSearchQuery,
+    setScrollPosition,
+  } = useEpisodeStore()
 
-  const [searchQuery, setSearchQuery] = useState('')
+  const observerRef = useInfiniteScroll({
+    hasMore: !!info.next && searchQuery.trim() === '',
+    loadMore: fetchNextPage,
+    isLoading,
+  })
+
+  useEffect(() => {
+    if (episodes.length === 0 && searchQuery === '') {
+      fetchEpisodes('/episode')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (scrollPosition > 0) {
+      setTimeout(() => {
+        window.scrollTo({ top: scrollPosition, behavior: 'auto' })
+      }, 0)
+    }
+
+    let throttleTimeout: NodeJS.Timeout | null = null
+    const handleScroll = () => {
+      if (!throttleTimeout) {
+        throttleTimeout = setTimeout(() => {
+          setScrollPosition(window.scrollY)
+          throttleTimeout = null
+        }, 200)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (throttleTimeout) {
+        clearTimeout(throttleTimeout)
+      }
+    }
+  }, [scrollPosition, setScrollPosition])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setSearchQuery(value)
-    fetchData(`/episode?name=${value}`)
+    setScrollPosition(0)
+    window.scrollTo(0, 0)
+    fetchEpisodes(`/location?name=${value}`)
   }
 
   return (
@@ -38,9 +78,11 @@ export const EpisodePage = () => {
 
       {error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader colorType={'episodes'} text={'Scanning the multiverse for episodes...'} />}
+      {isLoading && episodes.length === 0 && (
+        <Loader colorType={'episodes'} text={'Scanning the multiverse for episodes...'} />
+      )}
 
-      {!error && !isLoading && episodes.length === 0 && (
+      {!error && !isLoading && episodes.length === 0 && searchQuery !== '' && (
         <div className={s.noResults}>
           <Icon name={'noResults'} width={48} height={48} />
           <h3>No episodes found in this dimension!</h3>
@@ -48,15 +90,16 @@ export const EpisodePage = () => {
         </div>
       )}
 
-      {!error && !isLoading && episodes.length > 0 && (
+      {episodes.length > 0 && (
         <>
           <EpisodesInfoBar totalEpisodesCount={info.count} />
-
           <EpisodeList episodes={episodes} />
-
-          <Pagination colorType={'episodes'} currentPage={currentPage} pageInfo={info} onPrev={previousPageHandler} onNext={nextPageHandler} />
         </>
       )}
+
+      {isLoading && episodes.length > 0 && <Loader colorType={'episodes'} text={'Loading more episodes...'} />}
+
+      {!isLoading && !!info.next && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
     </div>
   )
 }
