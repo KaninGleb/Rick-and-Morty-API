@@ -13,7 +13,6 @@ export const CharacterPage = () => {
     isLoading,
     error,
     searchQuery,
-    scrollPosition,
     fetchCharacters,
     fetchNextPage,
     setSearchQuery,
@@ -27,37 +26,22 @@ export const CharacterPage = () => {
   })
 
   useEffect(() => {
-    if (characters.length === 0 && searchQuery === '') {
+    const state = useCharacterStore.getState()
+
+    if (state.characters.length === 0 && state.searchQuery === '') {
       fetchCharacters('/character')
     }
-  }, [])
 
-  useEffect(() => {
-    if (scrollPosition > 0) {
+    if (state.scrollPosition > 0) {
       setTimeout(() => {
-        window.scrollTo({ top: scrollPosition, behavior: 'auto' })
+        window.scrollTo({ top: state.scrollPosition, behavior: 'auto' })
       }, 0)
     }
 
-    let throttleTimeout: NodeJS.Timeout | null = null
-    const handleScroll = () => {
-      if (!throttleTimeout) {
-        throttleTimeout = setTimeout(() => {
-          setScrollPosition(window.scrollY)
-          throttleTimeout = null
-        }, 200)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      if (throttleTimeout) {
-        clearTimeout(throttleTimeout)
-      }
+      useCharacterStore.getState().setScrollPosition(window.scrollY)
     }
-  }, [scrollPosition, setScrollPosition])
+  }, [fetchCharacters])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
@@ -78,6 +62,7 @@ export const CharacterPage = () => {
       />
 
       {!isLoading && error && <ErrorMessage error={error} />}
+
       {characters.length > 0 && (
         <div className={s.characters}>
           {characters.map((character) => (
@@ -92,6 +77,7 @@ export const CharacterPage = () => {
           ))}
         </div>
       )}
+
       {isLoading && characters.length > 0 && <Loader colorType={'characters'} text={'Loading more characters...'} />}
       {isLoading && characters.length === 0 && <Loader colorType={'characters'} />}
       {!isLoading && !!info.next && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
