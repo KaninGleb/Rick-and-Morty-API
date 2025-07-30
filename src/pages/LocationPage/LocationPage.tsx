@@ -1,27 +1,69 @@
-import { type ChangeEvent, useState } from 'react'
-import { api, type LocationResults } from '@/pages/api'
-import { usePaginatedData } from '@/common/hooks'
-import { ErrorMessage, Loader, PageTitle, Pagination } from '@/common/components'
+import { type ChangeEvent, useEffect } from 'react'
+import { useLocationStore } from '@/stores'
+import { useInfiniteScroll } from '@/common/hooks'
+import { ErrorMessage, Loader, PageTitle } from '@/common/components'
 import { LocationsList } from './LocationsList/LocationsList'
+import s from './LocationPage.module.css'
 
 export const LocationPage = () => {
   const {
-    data: locations,
+    locations,
     info,
-    currentPage,
-    error,
     isLoading,
-    nextPageHandler,
-    previousPageHandler,
-    fetchData,
-  } = usePaginatedData<LocationResults>(api.getLocations, '/location')
+    error,
+    searchQuery,
+    scrollPosition,
+    fetchLocations,
+    fetchNextPage,
+    setSearchQuery,
+    setScrollPosition,
+  } = useLocationStore()
 
-  const [searchQuery, setSearchQuery] = useState('')
+  const observerRef = useInfiniteScroll({
+    hasMore: !!info.next && searchQuery.trim() === '',
+    loadMore: fetchNextPage,
+    isLoading,
+  })
+
+  useEffect(() => {
+    if (locations.length === 0 && searchQuery === '') {
+      fetchLocations('/location')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (scrollPosition > 0) {
+      setTimeout(() => {
+        window.scrollTo({ top: scrollPosition, behavior: 'auto' })
+      }, 0)
+    }
+
+    let throttleTimeout: NodeJS.Timeout | null = null
+    const handleScroll = () => {
+      if (!throttleTimeout) {
+        throttleTimeout = setTimeout(() => {
+          setScrollPosition(window.scrollY)
+          throttleTimeout = null
+        }, 200)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (throttleTimeout) {
+        clearTimeout(throttleTimeout)
+      }
+    }
+  }, [scrollPosition, setScrollPosition])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setSearchQuery(value)
-    fetchData(`/location?name=${value}`)
+    setScrollPosition(0)
+    window.scrollTo(0, 0)
+    fetchLocations(`/location?name=${value}`)
   }
 
   return (
@@ -36,21 +78,14 @@ export const LocationPage = () => {
 
       {!isLoading && error && <ErrorMessage error={error} />}
 
-      {isLoading && <Loader colorType={'locations'} text={'Scanning the multiverse for locations...'}/>}
+      {locations.length > 0 && <LocationsList locations={locations} />}
 
-      {!error && locations.length > 0 && (
-        <>
-          <LocationsList locations={locations} />
-
-          <Pagination
-            colorType={'locations'}
-            currentPage={currentPage}
-            pageInfo={info}
-            onPrev={previousPageHandler}
-            onNext={nextPageHandler}
-          />
-        </>
+      {isLoading && locations.length > 0 && <Loader colorType={'locations'} text={'Loading more locations...'} />}
+      {isLoading && locations.length === 0 && (
+        <Loader colorType={'locations'} text={'Scanning the multiverse for locations...'} />
       )}
+
+      {!isLoading && !!info.next && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
     </div>
   )
 }
