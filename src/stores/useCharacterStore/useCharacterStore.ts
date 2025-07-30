@@ -4,7 +4,6 @@ import type { CharacterZustandStore } from '@/stores/useCharacterStore/useCharac
 import type { AxiosError } from 'axios'
 
 export const useCharacterStore = create<CharacterZustandStore>((set, get) => ({
-  // --- InitialState ---
   characters: [],
   info: {
     count: 0,
@@ -17,7 +16,6 @@ export const useCharacterStore = create<CharacterZustandStore>((set, get) => ({
   error: null,
   scrollPosition: 0,
 
-  // --- Actions ---
   setSearchQuery: (query) => {
     set({ searchQuery: query })
   },

@@ -1,6 +1,6 @@
 import { type ChangeEvent, useEffect } from 'react'
 import { Link } from 'react-router'
-import { useCharacterStore } from '@/stores/useCharacterStore/useCharacterStore.tsx'
+import { useCharacterStore } from '@/stores'
 import { useInfiniteScroll } from '@/common/hooks'
 import { ErrorMessage, Loader, PageTitle } from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
