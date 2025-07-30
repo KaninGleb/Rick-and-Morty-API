@@ -1,33 +1,70 @@
-import { useState, type ChangeEvent } from 'react'
+import { type ChangeEvent, useEffect } from 'react'
 import { Link } from 'react-router'
-import { usePaginatedData, useInfiniteScroll } from '@/common/hooks'
-import { api, type CharactersResults } from '@/pages/api'
+import { useCharacterStore } from '@/store/useCharacterStore.tsx'
+import { useInfiniteScroll } from '@/common/hooks'
 import { ErrorMessage, Loader, PageTitle } from '@/common/components'
 import { PATH } from '@/common/data/paths.ts'
 import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('')
-
   const {
-    data: characters,
+    characters,
     info,
-    error,
     isLoading,
-    fetchData,
-    nextPageHandler,
-  } = usePaginatedData<CharactersResults>(api.getCharacters, '/character')
+    error,
+    searchQuery,
+    scrollPosition,
+    fetchCharacters,
+    fetchNextPage,
+    setSearchQuery,
+    setScrollPosition,
+  } = useCharacterStore()
 
   const observerRef = useInfiniteScroll({
     hasMore: !!info.next && searchQuery.trim() === '',
-    loadMore: nextPageHandler,
+    loadMore: fetchNextPage,
     isLoading,
   })
+
+  useEffect(() => {
+    if (characters.length === 0 && searchQuery === '') {
+      fetchCharacters('/character')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (scrollPosition > 0) {
+      setTimeout(() => {
+        window.scrollTo({ top: scrollPosition, behavior: 'auto' })
+      }, 0)
+    }
+
+    let throttleTimeout: NodeJS.Timeout | null = null
+    const handleScroll = () => {
+      if (!throttleTimeout) {
+        throttleTimeout = setTimeout(() => {
+          setScrollPosition(window.scrollY)
+          throttleTimeout = null
+        }, 200)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (throttleTimeout) {
+        clearTimeout(throttleTimeout)
+      }
+    }
+  }, [scrollPosition, setScrollPosition])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setSearchQuery(value)
-    fetchData(`/character?name=${value}`)
+    setScrollPosition(0)
+    window.scrollTo(0, 0)
+    fetchCharacters(`/character?name=${value}`)
   }
 
   return (
@@ -41,7 +78,6 @@ export const CharacterPage = () => {
       />
 
       {!isLoading && error && <ErrorMessage error={error} />}
-
       {characters.length > 0 && (
         <div className={s.characters}>
           {characters.map((character) => (
@@ -56,9 +92,8 @@ export const CharacterPage = () => {
           ))}
         </div>
       )}
-
-      {isLoading && <Loader colorType={'characters'} text={'Loading more characters...'} />}
-
+      {isLoading && characters.length > 0 && <Loader colorType={'characters'} text={'Loading more characters...'} />}
+      {isLoading && characters.length === 0 && <Loader colorType={'characters'} />}
       {!isLoading && !!info.next && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
     </div>
   )
