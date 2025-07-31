@@ -1,5 +1,5 @@
 import { type ChangeEvent, useEffect } from 'react'
-import { useLocationStore } from '@/stores'
+import {useCharacterStore, useLocationStore} from '@/stores'
 import { useInfiniteScroll } from '@/common/hooks'
 import { ErrorMessage, Loader, PageTitle } from '@/common/components'
 import { LocationsList } from './LocationsList/LocationsList'
@@ -12,7 +12,6 @@ export const LocationPage = () => {
     isLoading,
     error,
     searchQuery,
-    scrollPosition,
     fetchLocations,
     fetchNextPage,
     setSearchQuery,
@@ -26,37 +25,22 @@ export const LocationPage = () => {
   })
 
   useEffect(() => {
-    if (locations.length === 0 && searchQuery === '') {
+    const state = useCharacterStore.getState()
+
+    if (state.characters.length === 0 && state.searchQuery === '') {
       fetchLocations('/location')
     }
-  }, [])
 
-  useEffect(() => {
-    if (scrollPosition > 0) {
+    if (state.scrollPosition > 0) {
       setTimeout(() => {
-        window.scrollTo({ top: scrollPosition, behavior: 'auto' })
+        window.scrollTo({ top: state.scrollPosition, behavior: 'auto' })
       }, 0)
     }
 
-    let throttleTimeout: NodeJS.Timeout | null = null
-    const handleScroll = () => {
-      if (!throttleTimeout) {
-        throttleTimeout = setTimeout(() => {
-          setScrollPosition(window.scrollY)
-          throttleTimeout = null
-        }, 200)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      if (throttleTimeout) {
-        clearTimeout(throttleTimeout)
-      }
+      useCharacterStore.getState().setScrollPosition(window.scrollY)
     }
-  }, [scrollPosition, setScrollPosition])
+  }, [fetchLocations])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
