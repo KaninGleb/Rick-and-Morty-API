@@ -1,9 +1,9 @@
+import { useEffect, type ChangeEvent } from 'react'
 import { useEpisodeStore } from '@/stores'
 import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
 import { EpisodeList, EpisodesInfoBar } from '@/pages'
-import s from './EpisodePage.module.css'
 import { useInfiniteScroll } from '@/common/hooks'
-import { type ChangeEvent, useEffect } from 'react'
+import s from './EpisodePage.module.css'
 
 export const EpisodePage = () => {
   const {
@@ -12,7 +12,6 @@ export const EpisodePage = () => {
     isLoading,
     error,
     searchQuery,
-    scrollPosition,
     fetchEpisodes,
     fetchNextPage,
     setSearchQuery,
@@ -26,37 +25,22 @@ export const EpisodePage = () => {
   })
 
   useEffect(() => {
-    if (episodes.length === 0 && searchQuery === '') {
-      fetchEpisodes('/episode')
-    }
-  }, [])
+    const state = useEpisodeStore.getState()
 
-  useEffect(() => {
-    if (scrollPosition > 0) {
+    if (state.episodes.length === 0 && state.searchQuery === '') {
+      fetchEpisodes()
+    }
+
+    if (state.scrollPosition > 0) {
       setTimeout(() => {
-        window.scrollTo({ top: scrollPosition, behavior: 'auto' })
+        window.scrollTo({ top: state.scrollPosition, behavior: 'auto' })
       }, 0)
     }
 
-    let throttleTimeout: NodeJS.Timeout | null = null
-    const handleScroll = () => {
-      if (!throttleTimeout) {
-        throttleTimeout = setTimeout(() => {
-          setScrollPosition(window.scrollY)
-          throttleTimeout = null
-        }, 200)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      if (throttleTimeout) {
-        clearTimeout(throttleTimeout)
-      }
+      useEpisodeStore.getState().setScrollPosition(window.scrollY)
     }
-  }, [scrollPosition, setScrollPosition])
+  }, [fetchEpisodes])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
