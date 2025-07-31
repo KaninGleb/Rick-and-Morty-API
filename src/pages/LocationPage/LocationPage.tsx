@@ -1,4 +1,4 @@
-import { type ChangeEvent, useEffect } from 'react'
+import { useEffect, type ChangeEvent } from 'react'
 import {useCharacterStore, useLocationStore} from '@/stores'
 import { useInfiniteScroll } from '@/common/hooks'
 import { ErrorMessage, Loader, PageTitle } from '@/common/components'
@@ -25,9 +25,9 @@ export const LocationPage = () => {
   })
 
   useEffect(() => {
-    const state = useCharacterStore.getState()
+    const state = useLocationStore.getState()
 
-    if (state.characters.length === 0 && state.searchQuery === '') {
+    if (state.locations.length === 0 && state.searchQuery === '') {
       fetchLocations('/location')
     }
 
