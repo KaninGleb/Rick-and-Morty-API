@@ -1,7 +1,8 @@
 import { type ReactNode } from 'react'
-import { useInfiniteScroll, usePageData, type PageDataStore } from '@/common/hooks'
-import { ErrorMessage, Loader, PageTitle } from '@/common/components'
+import { type PageDataStore, usePageData, useInfiniteScroll } from '@/common/hooks'
+import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
 import type { PagesColorType } from '@/common'
+import s from './EntityListPage.module.css'
 
 type EntityListPageProps<T> = {
   store: PageDataStore<T>
@@ -42,18 +43,28 @@ export const EntityListPage = <T,>({
         placeholder={placeholder}
       />
 
-      {!isLoading && error && <ErrorMessage error={error} />}
+      {!isLoading && error && <ErrorMessage error={error === 'Request failed with status code 404' ? '' : error} />}
+
+      {!isLoading && items.length === 0 && searchQuery !== '' &&
+        (noResultsMessage ?? (
+          <div className={s.noResults}>
+            <Icon name="noResults" width={48} height={48} />
+            <h3>{`No ${colorType} found in this dimension!`}</h3>
+            <p>Try adjusting your search parameters or check another reality</p>
+          </div>
+        ))}
+
+      {!isLoading && items.length === 0 && searchQuery !== '' && noResultsMessage}
 
       {items.length > 0 && renderList(items)}
 
       {isLoading && items.length === 0 && (
         <Loader colorType={colorType} text={`Scanning the multiverse for ${colorType}s...`} />
       )}
+
       {isLoading && items.length > 0 && (
         <Loader colorType={colorType} text={`Downloading additional ${colorType}s...`} />
       )}
-
-      {!isLoading && items.length === 0 && searchQuery !== '' && noResultsMessage}
 
       {!isLoading && !!info.next && <div ref={observerRef} className={'infiniteScrollAnchor'} />}
     </div>
