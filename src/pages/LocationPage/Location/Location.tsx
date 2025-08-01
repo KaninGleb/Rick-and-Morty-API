@@ -56,7 +56,7 @@ export const Location = () => {
 
                   {isLoadingCharacters && <Loader colorType="locations" text="Loading residents..." />}
 
-                  {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
+                  {hasMore && <div ref={observerRef} className={'infiniteScrollAnchor'} />}
                 </>
               </div>
             ) : (

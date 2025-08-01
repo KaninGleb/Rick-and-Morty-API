@@ -56,7 +56,7 @@ export const Episode = () => {
 
                   {isLoadingCharacters && <Loader colorType={'episodes'} text={'Loading characters...'} />}
 
-                  {hasMore && <div ref={observerRef} className={s.infiniteScrollAnchor} />}
+                  {hasMore && <div ref={observerRef} className={'infiniteScrollAnchor'} />}
                 </>
               </div>
             ) : (

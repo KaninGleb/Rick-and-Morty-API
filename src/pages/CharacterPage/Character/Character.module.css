@@ -281,8 +281,3 @@
     box-shadow: 0 6px 20px var(--color-shadow-hover);
     transform: translateY(-3px);
 }
-
-.infiniteScrollAnchor {
-    width: 100%;
-    height: 1px;
-}
