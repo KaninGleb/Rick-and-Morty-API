@@ -1,0 +1,19 @@
+.noResults {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.noResults svg {
+    color: var(--color-primary-light);
+    stroke-width: 2;
+}
+
+.noResults svg {
+    stroke-width: 2;
+}
+
+.noResults {
+    color: var(--color-text);
+}
