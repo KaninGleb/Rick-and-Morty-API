@@ -27,25 +27,35 @@ export const usePageData = <T>({ store, endpoint }: UsePageDataProps<T>) => {
     if (items.length === 0 && searchQuery === '') {
       fetchItems(endpoint)
     }
+  }, [fetchItems, items.length, searchQuery, endpoint])
 
+  useEffect(() => {
     if (scrollPosition > 0) {
       setTimeout(() => {
         window.scrollTo({ top: scrollPosition, behavior: 'auto' })
       }, 0)
     }
-
-    return () => {
-      store.setScrollPosition(window.scrollY)
-    }
-  }, [fetchItems, items.length, searchQuery, scrollPosition, endpoint, store])
+  }, [scrollPosition])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setSearchQuery(value)
     setScrollPosition(0)
     window.scrollTo(0, 0)
-    fetchItems(`/${endpoint}?name=${value}`)
+    fetchItems(`${endpoint}?name=${value}`)
   }
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      store.setScrollPosition(window.scrollY)
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [store])
 
   return { searchHandler }
 }
