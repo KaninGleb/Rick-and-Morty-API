@@ -16,6 +16,8 @@ export const Header = () => {
   const location = useLocation()
   const activeColor = getActiveColorVar(location.pathname)
 
+  const isHome = location.pathname === PATH.Home
+
   const headerStyle = {
     '--active-nav-color': activeColor,
   } as CSSProperties
@@ -30,7 +32,7 @@ export const Header = () => {
   }
 
   return (
-    <header className={s.header} style={headerStyle}>
+    <header className={`${s.header} ${isHome ? s.headerHidden : ''}`} style={headerStyle}>
       <div className={s.container}>
         <NavLink to={PATH.Home} className={s.logoLink} aria-label={'Go to home page'}>
           <img className={s.logo} src={logo} alt={'Site logo'} />

@@ -4,6 +4,11 @@
     box-shadow: 0 2px 8px var(--color-shadow);
     background-color: var(--color-background-alt);
     z-index: 100;
+    transition: transform 0.5s ease-in-out;
+}
+
+.headerHidden {
+    transform: translateY(-100%);
 }
 
 .container {
