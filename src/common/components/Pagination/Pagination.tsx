@@ -1,10 +1,10 @@
 import { Icon } from '@/common/components'
 import type { Info } from '@/pages/api'
-import type { PagesColorType } from '@/common'
+import type { PageType } from '@/common'
 import s from './Pagination.module.css'
 
 type PaginationPropsType = {
-  colorType: PagesColorType
+  colorType: PageType
   currentPage: number
   pageInfo: Info
   onPrev: () => void
@@ -17,9 +17,9 @@ export const Pagination = ({ colorType, currentPage, pageInfo, onPrev, onNext }:
   const totalPages = pageInfo.pages ?? 1
 
   const colorClass = {
-    characters: s.charactersNav,
-    locations: s.locationsNav,
-    episodes: s.episodesNav,
+    character: s.charactersNav,
+    location: s.locationsNav,
+    episode: s.episodesNav,
   }
 
   return (

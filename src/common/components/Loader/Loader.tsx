@@ -1,16 +1,16 @@
-import type { PagesColorType } from '@/common'
+import type { PageType } from '@/common'
 import s from './Loader.module.css'
 
 type LoaderPropsType = {
-  colorType: PagesColorType
+  colorType: PageType
   text?: string
 }
 
 export const Loader = ({ colorType, text = 'Scanning the multiverse...' }: LoaderPropsType) => {
   const colorClass = {
-    characters: s.loaderCharacters,
-    locations: s.loaderLocations,
-    episodes: s.loaderEpisodes,
+    character: s.loaderCharacters,
+    location: s.loaderLocations,
+    episode: s.loaderEpisodes,
   }
 
   return (

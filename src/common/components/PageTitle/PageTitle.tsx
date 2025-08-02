@@ -1,10 +1,10 @@
 import { type ChangeEvent } from 'react'
 import { Icon } from '@/common/components'
-import type { PagesColorType } from '@/common'
+import type { PageType } from '@/common'
 import s from './PageTitle.module.css'
 
 type HeaderProps = {
-  colorType: PagesColorType
+  colorType: PageType
   title: string
   searchQuery: string
   placeholder: string
@@ -13,15 +13,15 @@ type HeaderProps = {
 
 export const PageTitle = ({ colorType, title, searchQuery, onSearch, placeholder }: HeaderProps) => {
   const titleColorClass = {
-    characters: s.charactersTitle,
-    locations: s.locationsTitle,
-    episodes: s.episodesTitle,
+    character: s.charactersTitle,
+    location: s.locationsTitle,
+    episode: s.episodesTitle,
   }
 
   const inputColorClass = {
-    characters: s.charactersSearchInput,
-    locations: s.locationsSearchInput,
-    episodes: s.episodesSearchInput,
+    character: s.charactersSearchInput,
+    location: s.locationsSearchInput,
+    episode: s.episodesSearchInput,
   }
 
   return (

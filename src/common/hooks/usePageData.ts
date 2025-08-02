@@ -1,6 +1,5 @@
 import { useEffect, type ChangeEvent } from 'react'
 import type { Info, ErrorType } from '@/pages/api'
-import type { PageType } from '@/common'
 
 export type PageDataStore<T> = {
   items: T[]
@@ -19,10 +18,9 @@ export type PageDataStore<T> = {
 type UsePageDataProps<T> = {
   store: PageDataStore<T>
   endpoint: string
-  pageKey: PageType
 }
 
-export const usePageData = <T>({ store, endpoint, pageKey }: UsePageDataProps<T>) => {
+export const usePageData = <T>({ store, endpoint }: UsePageDataProps<T>) => {
   const { items, searchQuery, fetchItems, setSearchQuery, setScrollPosition, scrollPosition } = store
 
   useEffect(() => {
@@ -32,28 +30,28 @@ export const usePageData = <T>({ store, endpoint, pageKey }: UsePageDataProps<T>
   }, [fetchItems, items.length, searchQuery, endpoint])
 
   useEffect(() => {
-    const position = scrollPosition[pageKey]
+    const position = scrollPosition[endpoint]
 
     if (position > 0) {
       setTimeout(() => {
         window.scrollTo({ top: position, behavior: 'auto' })
       }, 0)
     }
-  }, [scrollPosition, pageKey])
+  }, [scrollPosition, endpoint])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setSearchQuery(value)
-    setScrollPosition(pageKey, 0)
+    setScrollPosition(endpoint, 0)
     window.scrollTo(0, 0)
     fetchItems(`${endpoint}?name=${value}`)
   }
 
   useEffect(() => {
     return () => {
-      setScrollPosition(pageKey, window.scrollY)
+      setScrollPosition(endpoint, window.scrollY)
     }
-  }, [setScrollPosition, pageKey])
+  }, [setScrollPosition, endpoint])
 
   return { searchHandler }
 }
