@@ -4,6 +4,7 @@ import { LocationsList } from './LocationsList/LocationsList'
 
 export const LocationPage = () => (
   <EntityListPage
+    pageKey={'location'}
     store={useLocationStore()}
     endpoint={'/location'}
     colorType={'locations'}

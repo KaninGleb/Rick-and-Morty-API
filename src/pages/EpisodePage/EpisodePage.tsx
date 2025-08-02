@@ -7,6 +7,7 @@ export const EpisodePage = () => {
 
   return (
     <EntityListPage
+      pageKey={'episode'}
       store={useEpisodeStore()}
       endpoint={'/episode'}
       colorType={'episodes'}

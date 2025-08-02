@@ -6,6 +6,7 @@ import s from './CharacterPage.module.css'
 
 export const CharacterPage = () => (
   <EntityListPage
+    pageKey={'character'}
     store={useCharacterStore()}
     endpoint={'/character'}
     colorType={'characters'}
