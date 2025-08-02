@@ -1,7 +1,8 @@
 import { type ReactNode } from 'react'
 import { type PageDataStore, usePageData, useInfiniteScroll } from '@/common/hooks'
-import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
 import type { PagesColorType } from '@/common'
+import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
+import { ScrollToTopButton } from '@/common/components/ScrollToTopButton/ScrollToTopButton.tsx'
 import s from './EntityListPage.module.css'
 
 type EntityListPageProps<T> = {
@@ -67,6 +68,8 @@ export const EntityListPage = <T,>({
       )}
 
       {!isLoading && !!info.next && <div ref={observerRef} className={'infiniteScrollAnchor'} />}
+
+      <ScrollToTopButton />
     </div>
   )
 }
