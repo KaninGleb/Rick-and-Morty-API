@@ -20,6 +20,15 @@ export const Header = () => {
     '--active-nav-color': activeColor,
   } as CSSProperties
 
+  const handleNavLinkClick = (path: string) => {
+    if (location.pathname.startsWith(path)) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
+  }
+
   return (
     <header className={s.header} style={headerStyle}>
       <div className={s.container}>
@@ -33,6 +42,7 @@ export const Header = () => {
                 <NavLink
                   to={path}
                   data-label={label}
+                  onClick={() => handleNavLinkClick(path)}
                   className={({ isActive }) => `${s.headerLink} ${isActive ? s.activeLink : ''}`}
                 >
                   <span className={s.labelText}>{label}</span>
