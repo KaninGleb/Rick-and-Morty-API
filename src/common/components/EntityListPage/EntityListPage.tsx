@@ -1,11 +1,12 @@
 import { type ReactNode } from 'react'
 import { type PageDataStore, usePageData, useInfiniteScroll } from '@/common/hooks'
-import type { PagesColorType } from '@/common'
+import type { PagesColorType, PageType } from '@/common'
 import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
 import { ScrollToTopButton } from '@/common/components/ScrollToTopButton/ScrollToTopButton.tsx'
 import s from './EntityListPage.module.css'
 
 type EntityListPageProps<T> = {
+  pageKey: PageType
   store: PageDataStore<T>
   endpoint: string
   colorType: PagesColorType
@@ -16,6 +17,7 @@ type EntityListPageProps<T> = {
 }
 
 export const EntityListPage = <T,>({
+  pageKey,
   store,
   endpoint,
   colorType,
@@ -26,7 +28,7 @@ export const EntityListPage = <T,>({
 }: EntityListPageProps<T>) => {
   const { items, info, isLoading, error, searchQuery, fetchNextPage } = store
 
-  const { searchHandler } = usePageData({ store, endpoint })
+  const { searchHandler } = usePageData({ store, endpoint, pageKey })
 
   const observerRef = useInfiniteScroll({
     hasMore: !!info.next && searchQuery.trim() === '',

@@ -8,10 +8,10 @@ type EntityStore<T> = {
   searchQuery: string
   isLoading: boolean
   error: ErrorType
-  scrollPosition: number
+  scrollPosition: Record<string, number>
 
   setSearchQuery: (query: string) => void
-  setScrollPosition: (position: number) => void
+  setScrollPosition: (pageKey: string, position: number) => void
   fetchItems: (url?: string) => Promise<void>
   fetchNextPage: () => Promise<void>
 }
@@ -30,14 +30,19 @@ export const createEntityStore = <T>(fetchFunction: FetchFunction<T>, endpoint: 
     searchQuery: '',
     isLoading: false,
     error: null,
-    scrollPosition: 0,
+    scrollPosition: {},
 
     setSearchQuery: (query) => {
       set({ searchQuery: query })
     },
 
-    setScrollPosition: (position) => {
-      set({ scrollPosition: position })
+    setScrollPosition: (pageKey, position) => {
+      set(state => ({
+        scrollPosition: {
+          ...state.scrollPosition,
+          [pageKey]: position
+        }
+      }))
     },
 
     fetchItems: async (url = endpoint) => {
