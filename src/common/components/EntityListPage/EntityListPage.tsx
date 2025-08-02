@@ -1,34 +1,28 @@
 import { type ReactNode } from 'react'
 import { type PageDataStore, usePageData, useInfiniteScroll } from '@/common/hooks'
-import type { PagesColorType, PageType } from '@/common'
 import { ErrorMessage, Icon, Loader, PageTitle } from '@/common/components'
 import { ScrollToTopButton } from '@/common/components/ScrollToTopButton/ScrollToTopButton.tsx'
+import type { PageType } from '@/common'
 import s from './EntityListPage.module.css'
 
-type EntityListPageProps<T> = {
-  pageKey: PageType
-  store: PageDataStore<T>
+export type EntityPageConfig = {
   endpoint: string
-  colorType: PagesColorType
   title: string
   placeholder: string
-  renderList: (items: T[]) => ReactNode
   noResultsMessage?: ReactNode
 }
 
-export const EntityListPage = <T,>({
-  pageKey,
-  store,
-  endpoint,
-  colorType,
-  title,
-  placeholder,
-  renderList,
-  noResultsMessage,
-}: EntityListPageProps<T>) => {
-  const { items, info, isLoading, error, searchQuery, fetchNextPage } = store
+type EntityListPageProps<T> = {
+  config: EntityPageConfig
+  store: PageDataStore<T>
+  renderList: (items: T[]) => ReactNode
+}
 
-  const { searchHandler } = usePageData({ store, endpoint, pageKey })
+export const EntityListPage = <T,>({ config, store, renderList }: EntityListPageProps<T>) => {
+  const { endpoint, title, placeholder, noResultsMessage } = config
+
+  const { items, info, isLoading, error, searchQuery, fetchNextPage } = store
+  const { searchHandler } = usePageData({ store, endpoint })
 
   const observerRef = useInfiniteScroll({
     hasMore: !!info.next && searchQuery.trim() === '',
@@ -36,10 +30,12 @@ export const EntityListPage = <T,>({
     isLoading,
   })
 
+  const pageKey = config.endpoint.replace(/^\/+|\/+$/g, '') as PageType
+
   return (
     <div className={'pageContainer'}>
       <PageTitle
-        colorType={colorType}
+        colorType={pageKey}
         title={title}
         searchQuery={searchQuery}
         onSearch={searchHandler}
@@ -48,11 +44,13 @@ export const EntityListPage = <T,>({
 
       {!isLoading && error && <ErrorMessage error={error === 'Request failed with status code 404' ? '' : error} />}
 
-      {!isLoading && items.length === 0 && searchQuery !== '' &&
+      {!isLoading &&
+        items.length === 0 &&
+        searchQuery !== '' &&
         (noResultsMessage ?? (
           <div className={s.noResults}>
             <Icon name="noResults" width={48} height={48} />
-            <h3>{`No ${colorType} found in this dimension!`}</h3>
+            <h3>{`No ${pageKey} found in this dimension!`}</h3>
             <p>Try adjusting your search parameters or check another reality</p>
           </div>
         ))}
@@ -62,12 +60,10 @@ export const EntityListPage = <T,>({
       {items.length > 0 && renderList(items)}
 
       {isLoading && items.length === 0 && (
-        <Loader colorType={colorType} text={`Scanning the multiverse for ${colorType}s...`} />
+        <Loader colorType={pageKey} text={`Scanning the multiverse for ${pageKey}s...`} />
       )}
 
-      {isLoading && items.length > 0 && (
-        <Loader colorType={colorType} text={`Downloading additional ${colorType}s...`} />
-      )}
+      {isLoading && items.length > 0 && <Loader colorType={pageKey} text={`Downloading additional ${pageKey}s...`} />}
 
       {!isLoading && !!info.next && <div ref={observerRef} className={'infiniteScrollAnchor'} />}
 
