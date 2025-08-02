@@ -46,16 +46,10 @@ export const usePageData = <T>({ store, endpoint }: UsePageDataProps<T>) => {
   }
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      store.setScrollPosition(window.scrollY)
-    }
-
-    window.addEventListener('beforeunload', handleBeforeUnload)
-
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload)
+      setScrollPosition(window.scrollY)
     }
-  }, [store])
+  }, [setScrollPosition])
 
   return { searchHandler }
 }
