@@ -1,18 +1,20 @@
+import { EntityListPage, type EntityPageConfig } from '@/common/components'
 import { useEpisodeStore } from '@/stores'
-import { EntityListPage } from '@/common/components'
 import { EpisodesInfoBar, EpisodeList } from '@/pages'
+
+const episodePageConfig: EntityPageConfig = {
+  endpoint: '/episode',
+  title: 'Episode Multiverse',
+  placeholder: 'Search across dimensions... (e.g., Pilot, Rick Potion)',
+}
 
 export const EpisodePage = () => {
   const { info } = useEpisodeStore()
 
   return (
     <EntityListPage
-      pageKey={'episode'}
+      config={episodePageConfig}
       store={useEpisodeStore()}
-      endpoint={'/episode'}
-      colorType={'episodes'}
-      title={'Episode Multiverse'}
-      placeholder={'Search across dimensions... (e.g., Pilot, Rick Potion)'}
       renderList={(episodes) => (
         <>
           <EpisodesInfoBar totalEpisodesCount={info.count} />
