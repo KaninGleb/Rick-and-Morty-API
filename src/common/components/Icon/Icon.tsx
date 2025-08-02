@@ -1,7 +1,7 @@
 import { type SVGProps, type ReactElement } from 'react'
 
 interface IconProps extends SVGProps<SVGSVGElement> {
-  name: 'search' | 'error' | 'noResults' | 'previous' | 'next'
+  name: 'search' | 'error' | 'noResults' | 'previous' | 'next' | 'scrollToTopArrow'
   width?: number
   height?: number
 }
@@ -40,6 +40,12 @@ export const Icon = ({ name, width = 24, height = 24, ...props }: IconProps) => 
     next: (
       <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" {...props}>
         <polyline points="9 18 15 12 9 6" />
+      </svg>
+    ),
+
+    scrollToTopArrow: (
+      <svg width={width} height={height} viewBox="0 0 15 16" fill="none" stroke="currentColor" aria-hidden="true" {...props}>
+        <path d="M6.80722 4.2806V15H9.19278V4.2806L14.3134 9.08118L16 7.5L8 0L0 7.5L1.6866 9.08118L6.80722 4.2806Z" fill='black'/>
       </svg>
     ),
   }
