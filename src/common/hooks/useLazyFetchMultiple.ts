@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { api, type ErrorType } from '@/pages/api'
 import { parseUrls } from '@/common'
+import { API_ENDPOINTS } from '@/common/data/paths.ts'
 
 export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
   const [data, setData] = useState<T[]>([])
@@ -29,7 +30,10 @@ export const useLazyFetchMultiple = <T>(urls: string[], batchSize = 10) => {
         }
 
         let results: T[]
-        if (endpoint?.includes('/character') || endpoint?.includes('/episode') || endpoint?.includes('/location')) {
+
+        const knownEndpoints = Object.values(API_ENDPOINTS)
+
+        if (endpoint && knownEndpoints.some((known) => endpoint.includes(known))) {
           results = await api.getMultiple<T>(endpoint, ids, controller.signal)
         } else {
           results = await api.getIndividual<T>(batchUrls, controller.signal)

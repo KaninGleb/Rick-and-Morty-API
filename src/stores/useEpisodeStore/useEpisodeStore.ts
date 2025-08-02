@@ -1,7 +1,8 @@
 import { createEntityStore } from '@/stores'
 import { api } from '@/pages/api'
+import { API_ENDPOINTS } from '@/common/data/paths.ts'
 
-export const useEpisodeStore = createEntityStore(api.getEpisodes, '/episode')
+export const useEpisodeStore = createEntityStore(api.getEpisodes, API_ENDPOINTS.Episodes)
 
 // import { create } from 'zustand'
 // import type { EpisodeZustandStore } from './useEpisodeStore.types.ts'

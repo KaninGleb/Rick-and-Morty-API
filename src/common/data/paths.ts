@@ -7,3 +7,9 @@ export const PATH = {
   Episodes: '/episodes',
   Episode: '/episodes/:id',
 } as const
+
+export const API_ENDPOINTS = {
+  Characters: '/character',
+  Locations: '/location',
+  Episodes: '/episode',
+} as const

@@ -1,11 +1,11 @@
 import { Link } from 'react-router'
 import { EntityListPage, type EntityPageConfig } from '@/common/components'
 import { useCharacterStore } from '@/stores'
-import { PATH } from '@/common/data/paths.ts'
+import { API_ENDPOINTS, PATH } from '@/common/data/paths.ts'
 import s from './CharacterPage.module.css'
 
 const characterPageConfig: EntityPageConfig = {
-  endpoint: '/character',
+  endpoint: API_ENDPOINTS.Characters,
   title: 'Character Multiverse',
   placeholder: 'Search across characters... (e.g., Rick Sanchez, Morty Smith)',
 }

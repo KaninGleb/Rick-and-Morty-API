@@ -1,14 +1,15 @@
 import { instance } from '@/common'
+import { API_ENDPOINTS } from '@/common/data/paths.ts'
 import type { BaseResponse, CharactersResults, LocationResults, EpisodeResults } from '@/pages/api/api.types.ts'
 
 export const api = {
-  getCharacters(url: string = `/character`) {
+  getCharacters(url: string = API_ENDPOINTS.Characters) {
     return instance.get<BaseResponse<CharactersResults>>(url)
   },
-  getLocations(url: string = `/location`) {
+  getLocations(url: string = API_ENDPOINTS.Locations) {
     return instance.get<BaseResponse<LocationResults>>(url)
   },
-  getEpisodes(url: string = `/episode`) {
+  getEpisodes(url: string = API_ENDPOINTS.Episodes) {
     return instance.get<BaseResponse<EpisodeResults>>(url)
   },
   async getIndividual<T>(urls: string[], signal?: AbortSignal): Promise<T[]> {

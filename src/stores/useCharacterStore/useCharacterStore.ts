@@ -1,7 +1,8 @@
 import { createEntityStore } from '@/stores'
 import { api } from '@/pages/api'
+import { API_ENDPOINTS } from '@/common/data/paths.ts'
 
-export const useCharacterStore = createEntityStore(api.getCharacters, '/character')
+export const useCharacterStore = createEntityStore(api.getCharacters, API_ENDPOINTS.Characters)
 
 // import { create } from 'zustand'
 // import { api } from '@/pages/api'

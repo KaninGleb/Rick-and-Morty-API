@@ -1,7 +1,8 @@
 import { createEntityStore } from '@/stores'
 import { api } from '@/pages/api'
+import { API_ENDPOINTS } from '@/common/data/paths.ts'
 
-export const useLocationStore = createEntityStore(api.getLocations, '/location')
+export const useLocationStore = createEntityStore(api.getLocations, API_ENDPOINTS.Locations)
 
 // import { create } from 'zustand'
 // import type { LocationZustandStore } from './useLocationStore.types.ts'
