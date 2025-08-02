@@ -1,17 +1,19 @@
 import { Link } from 'react-router'
-import { EntityListPage } from '@/common/components'
+import { EntityListPage, type EntityPageConfig } from '@/common/components'
 import { useCharacterStore } from '@/stores'
 import { PATH } from '@/common/data/paths.ts'
 import s from './CharacterPage.module.css'
 
+const characterPageConfig: EntityPageConfig = {
+  endpoint: '/character',
+  title: 'Character Multiverse',
+  placeholder: 'Search across characters... (e.g., Rick Sanchez, Morty Smith)',
+}
+
 export const CharacterPage = () => (
   <EntityListPage
-    pageKey={'character'}
+    config={characterPageConfig}
     store={useCharacterStore()}
-    endpoint={'/character'}
-    colorType={'characters'}
-    title={'Character Multiverse'}
-    placeholder={'Search across characters... (e.g., Rick Sanchez, Morty Smith)'}
     renderList={(characters) => (
       <div className={s.characters}>
         {characters.map((character) => (
