@@ -45,34 +45,58 @@
 
 .headerLink {
     position: relative;
-    padding: 8px 4px;
+    display: inline-block;
     color: var(--slate-700);
-    font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
-    transition: color 0.3s ease;
-    border-radius: 4px;
+    transition: color 0.3s ease, transform 0.2s ease-out;
 }
 
-.headerLink:hover,
+.labelText {
+    display: block;
+    font-weight: 600;
+    transition: font-weight 0.1s;
+}
+
+.headerLink::before {
+    content: attr(data-label);
+    display: block;
+    height: 0;
+    font-weight: 700;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.headerLink:hover .labelText,
+.headerLink:focus .labelText {
+    color: var(--active-nav-color, var(--slate-800));
+}
+
 .headerLink:focus {
-    color: var(--episodes-header-color-primary);
     outline: none;
-    background-color: var(--slate-200-20);
 }
 
-.activeLink {
-    color: var(--episodes-header-color-primary);
+.activeLink .labelText {
     font-weight: 700;
 }
 
-.activeLink::after {
+.activeLink {
+    color: var(--active-nav-color, var(--slate-800));
+}
+
+.headerLink::after {
     position: absolute;
+    content: '';
     right: 0;
     bottom: -6px;
     left: 0;
+    width: 0;
     height: 3px;
-    background: var(--episodes-header-color-primary);
-    content: '';
+    background: var(--active-nav-color, var(--slate-800));
     border-radius: 2px 2px 0 0;
+    transition: width 0.3s ease-in-out;
+}
+
+.activeLink::after {
+    width: 100%;
 }
